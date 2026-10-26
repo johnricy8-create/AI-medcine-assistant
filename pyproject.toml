@@ -1,0 +1,39 @@
+[project]
+name = "pharma-research-agent"
+version = "0.1.0"
+description = "医药研发知识助手：基于 LangChain + LangGraph 的多步证据检索与研究底稿系统"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi==0.115.12",
+    "uvicorn[standard]==0.50.2",
+    "jinja2==3.1.6",
+    "pydantic==2.13.4",
+    "pydantic-settings==2.14.2",
+    "python-dotenv==1.2.2",
+    "httpx==0.28.1",
+    "tenacity==9.1.4",
+    "pyyaml==6.0.3",
+    "lxml==6.1.1",
+    "tqdm==4.68.3",
+    "langchain==1.2.10",
+    "langchain-core==1.4.8",
+    "langchain-openai==1.1.10",
+    "langchain-chroma==1.1.0",
+    "langchain-text-splitters==1.1.1",
+    "langgraph==1.0.8",
+    "langgraph-checkpoint==4.1.1",
+    "chromadb==1.3.5",
+    "pymupdf==1.23.16",
+    "rank-bm25==0.2.2",
+    "jieba==0.42.1",
+    "networkx==3.4.2",
+    "pandas==2.3.1",
+    "numpy==1.26.4",
+    "rapidfuzz==3.14.5",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
