@@ -9,13 +9,18 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph import END, START, StateGraph
 
 from app.graph.nodes import (
+    counter_evidence_node,
     fan_out,
     finalize_node,
+    gaps_node,
+    grade_node,
     intake_node,
     link_entities_node,
     normalize_node,
     plan_node,
     retrieve_source_node,
+    synthesize_node,
+    verify_node,
 )
 from app.graph.services import GraphServices
 from app.graph.state import ResearchState
@@ -42,6 +47,17 @@ def build_graph(
         lambda payload: retrieve_source_node(payload, services),
     )
     graph.add_node("normalize", lambda state: normalize_node(state, services))
+    graph.add_node(
+        "counter_evidence",
+        lambda state: counter_evidence_node(state, services),
+    )
+    graph.add_node("grade", lambda state: grade_node(state, services))
+    graph.add_node(
+        "synthesize",
+        lambda state: synthesize_node(state, services),
+    )
+    graph.add_node("verify", lambda state: verify_node(state, services))
+    graph.add_node("gaps", lambda state: gaps_node(state, services))
     graph.add_node("finalize", lambda state: finalize_node(state, services))
 
     graph.add_edge(START, "intake")
@@ -49,7 +65,12 @@ def build_graph(
     graph.add_edge("link_entities", "plan")
     graph.add_conditional_edges("plan", fan_out)
     graph.add_edge("retrieve_source", "normalize")
-    graph.add_edge("normalize", "finalize")
+    graph.add_edge("normalize", "counter_evidence")
+    graph.add_edge("counter_evidence", "grade")
+    graph.add_edge("grade", "synthesize")
+    graph.add_edge("synthesize", "verify")
+    graph.add_edge("verify", "gaps")
+    graph.add_edge("gaps", "finalize")
     graph.add_edge("finalize", END)
     return graph.compile(checkpointer=checkpointer or InMemorySaver())
 

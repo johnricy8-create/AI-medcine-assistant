@@ -118,6 +118,7 @@ class Evidence(BaseModel):
     scores: ScoreSet = Field(default_factory=ScoreSet)
     retrieved_at: datetime = Field(default_factory=utcnow)
     tool_call_id: str | None = None
+    metadata: dict[str, Any] = Field(default_factory=dict)
 
 
 class Claim(BaseModel):
@@ -130,6 +131,7 @@ class Claim(BaseModel):
     confidence: float = Field(default=0.0, ge=0.0, le=1.0)
     caveats: list[str] = Field(default_factory=list)
     verified: bool = False
+    verify_notes: list[str] = Field(default_factory=list)
 
 
 class Conflict(BaseModel):

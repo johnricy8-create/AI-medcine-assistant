@@ -69,6 +69,19 @@ def main() -> int:
                         item.model_dump(mode="json")
                         for item in final_evidence
                     ],
+                    "claims": [
+                        item.model_dump(mode="json")
+                        for item in result.get("claims", [])
+                    ],
+                    "assessment": result.get("assessment"),
+                    "conflicts": [
+                        item.model_dump(mode="json")
+                        for item in result.get("conflicts", [])
+                    ],
+                    "gaps": result.get("gaps", []),
+                    "next_steps": result.get("next_steps", []),
+                    "verify_notes": result.get("verify_notes", []),
+                    "llm_used": result.get("llm_used", False),
                     "errors": [
                         item.model_dump(mode="json")
                         for item in result.get("errors", [])

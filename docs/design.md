@@ -255,6 +255,18 @@ query
 - `evidence` 字段用 reducer 合并 fan-out；`normalize` 的排序写入独立 `final_evidence`，避免 reducer 保留旧顺序；
 - Chroma 多条件过滤使用 `$and`。
 
+**P5 实际结果（2026-10-26）**：
+
+- 反例检索：否定查询扩展 + ELN 阴性证据；
+- 证据分级：A/B/C/D 确定性规则，按直接性/物种/方法/重复性/样本量/一致性计算；
+- Claims：智谱 JSON 结构化综合，模型降级/解析失败时回退抽取式；
+- 证据选择：按问题意图（体内/体外/专利/机制）保留来源多样性，优先内部与阴性证据；
+- 阴性覆盖：即使 LLM 只总结阳性结论，规则会补充内部阴性 ELN claim；
+- 引用校验：evidence_id、ACL、quote 子串；失败 claim 丢弃或标记；
+- 研究底稿：一句话判断、支持证据、反例、内部实验、等级、缺口、建议实验、引用；
+- 真实任务 A1/A3/NOD2 completed；ACL/注入 blocked；
+- 108 项测试通过。
+
 ### 6.3 ACL
 
 - chunk 带单值 `acl_scope`：`public` 或 `project:IBD-TX-07`；
@@ -334,7 +346,7 @@ query
 | P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟（已完成） |
 | P3 | RRF 混合检索 + 查询扩展 + rerank + 组学工具（已完成） |
 | P4 | LangGraph 主图、fan-out、预算、ACL、事件、CLI（已完成） |
-| P5 | 反例、分级、claims、引用校验、研究底稿 |
+| P5 | 反例、分级、claims、引用校验、研究底稿（已完成） |
 | P6 | FastAPI 业务接口 + 工作台页面 |
 | P7 | 人工评审、快照、审计、权限测试 |
 | P8 | 评估集、README、演示脚本、验收 |

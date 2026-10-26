@@ -9,7 +9,7 @@ from typing import Annotated, Any, TypedDict
 
 from pydantic import BaseModel, Field
 
-from app.schemas import EntityRef, Evidence, SubQuestion
+from app.schemas import Claim, Conflict, EntityRef, Evidence, SubQuestion
 from app.tools.models import ToolResult
 
 
@@ -99,6 +99,14 @@ class ResearchState(TypedDict, total=False):
     evidence: Annotated[list[Evidence], merge_evidence]
     # normalize 的排序结果单独存放，避免 evidence reducer 保留 fan-out 旧顺序。
     final_evidence: list[Evidence]
+    counter_evidence: list[Evidence]
+    claims: list[Claim]
+    assessment: str
+    conflicts: list[Conflict]
+    gaps: list[str]
+    next_steps: list[str]
+    verify_notes: list[str]
+    llm_used: bool
     tool_results: Annotated[list[ToolResult], operator.add]
     events: Annotated[list[Event], operator.add]
     errors: Annotated[list[NodeError], operator.add]

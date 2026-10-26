@@ -2,7 +2,22 @@
 
 基于 **LangChain + LangGraph** 的医药研发证据工作台。面向创新药项目科学家，把文献、专利、临床试验、内部 ELN、组学数据和项目报告连接起来，输出带证据等级、反例、数据缺口和可验证引用的研究底稿。
 
-> 当前状态：**P4 LangGraph 主图完成**。已具备 intake/ACL、实体链接、规则规划、Send 并行检索、组学工具、证据归一化、最小研究底稿与任务事件；claims/分级/引用校验/API/页面尚未实现。
+> 当前状态：**P5 证据综合完成**。已具备证据分级、反例检索、LLM/规则 claims、冲突检测、引用校验、完整研究底稿；业务 API、SSE、页面、人工评审尚未实现。
+
+### P5 验证记录（2026-10-26）
+
+| 项 | 结果 |
+|---|---|
+| 证据分级 | 确定性规则 A/B/C/D（直接性/物种/方法/重复性/样本量/一致性） |
+| 反例检索 | 否定查询扩展 + 阴性 ELN 显式覆盖 |
+| Claims | 智谱 JSON 结构化综合；失败自动回退抽取式 |
+| 引用校验 | evidence_id 存在、ACL 可访问、quote 是 chunk 子串 |
+| 冲突检测 | 支持/反例并列，自动生成 conflict |
+| 研究底稿 | 一句话判断 / 支持证据 / 反例 / 内部实验 / 等级 / 缺口 / 建议实验 / 引用 |
+| 真实任务 | A1/A3/NOD2 均 completed；ACL 越权与注入 blocked |
+| 测试 | **108 项全部通过** |
+
+实测中 `glm-4.7-flash`/`glm-4-flash` 偶尔 429 或返回非严格 JSON；`LLMClient` 会降级并在失败时回退抽取式 claims，图不会中断。
 
 ### P4 验证记录（2026-10-26）
 
@@ -262,6 +277,8 @@ uv run python scripts/run_task.py "NOD2 敲低对 IL23R 的影响？" --json
 uv run python scripts/run_task.py "ONCO-02 项目里 IL23R 的结果？" --user scientist_031 --project IBD-TX-07
 ```
 
+P5 输出的是完整研究底稿，包含 claims、证据等级、反例、缺口、建议实验和引用。`--json` 还会返回 `claims`、`verify_notes`、`assessment`、`gaps`、`next_steps`。
+
 ---
 
 ## 4. 启动
@@ -333,8 +350,17 @@ uv run python -m unittest discover -s tests -v
 │  │  ├─ state.py          # ResearchState / Budget / Event / reducers
 │  │  ├─ planner.py        # 规则规划器
 │  │  ├─ services.py       # 图运行时依赖容器
-│  │  ├─ nodes.py          # intake/link/plan/retrieve/normalize/finalize
+│  │  ├─ evidence.py       # 检索命中/工具结果 → Evidence
+│  │  ├─ nodes.py          # 全流程节点
 │  │  └─ builder.py        # StateGraph + Send fan-out + InMemorySaver
+│  ├─ evidence/
+│  │  ├─ grading.py        # A/B/C/D 规则分级
+│  │  ├─ selection.py      # 按问题意图选证据
+│  │  ├─ claims.py         # LLM claims + 规则兜底 + 内部证据覆盖
+│  │  ├─ verification.py   # 引用/ACL/quote 校验
+│  │  └─ report.py         # 研究底稿渲染
+│  ├─ llm/
+│  │  └─ client.py         # 智谱 JSON + 模型降级 + 解析修复
 │  ├─ services/
 │  │  └─ acl.py            # 演示级用户/项目 ACL
 │  ├─ utils/
@@ -408,6 +434,10 @@ uv run python -m unittest discover -s tests -v
 17. **Chroma 单线程 executor**：LangGraph Send 并行检索时，所有 Chroma 操作固定在一个线程；否则会报 tenant 错误。
 18. **`final_evidence` 独立排序**：`evidence` 用 reducer 合并 fan-out 结果；normalize 的排序写入 `final_evidence`，finalize 使用它。
 19. **无权项目直接拦截**：问题中出现未授权项目 ID（如 `ONCO-02`）时，intake 返回统一的 blocked 文案，不泄露存在性。
+20. **证据等级由代码定**：LLM 不能自行定级；A/B/C/D 由 `EvidenceGrader` 按规则计算。
+21. **阴性结果显式覆盖**：即使 LLM 只总结阳性结论，规则会补充内部阴性 ELN claim，避免反例被吞掉。
+22. **引用程序校验**：evidence_id 必须存在、ACL 可访问、quote 是 chunk 子串；校验失败的 claim 会被丢弃或标记。
+23. **LLM 失败不阻断**：JSON 解析失败/429 时依次降级模型，最终回退抽取式 claims。
 
 ---
 
@@ -419,8 +449,8 @@ uv run python -m unittest discover -s tests -v
 | P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟 | **已完成** |
 | P3 | RRF 混合检索 + 查询扩展 + rerank + 组学工具 | **已完成** |
 | P4 | LangGraph 主图、fan-out、预算、ACL、事件、CLI | **已完成** |
-| P5 | 反例、证据分级、claims、引用校验、完整研究底稿 | 下一步 |
-| P6 | FastAPI 业务接口 + 研究工作台页面 | 待开始 |
+| P5 | 反例、证据分级、claims、引用校验、完整研究底稿 | **已完成** |
+| P6 | FastAPI 业务接口 + 研究工作台页面 | 下一步 |
 | P7 | 人工评审、快照、审计、权限测试 | 待开始 |
 | P8 | 30–40 条评估、演示脚本、最终验收 | 待开始 |
 

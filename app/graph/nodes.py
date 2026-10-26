@@ -6,24 +6,22 @@ P4 只负责：准入、实体、规划、并行检索、证据归一化、最�
 
 from __future__ import annotations
 
-import json
 import re
 import uuid
 from typing import Any
 
 from langgraph.types import Send
 
+from app.evidence.claims import rule_gaps, rule_next_steps
+from app.evidence.report import render_research_brief
+from app.evidence.verification import CitationVerifier
+from app.graph.evidence import evidence_from_hit, evidence_from_tool
 from app.graph.services import GraphServices
 from app.graph.state import BudgetState, Event, NodeError, ResearchState
-from app.ingest.manifest import sha256_text
 from app.schemas import (
     EntityRef,
     Evidence,
-    EvidenceLevel,
-    Locator,
-    ScoreSet,
     SourceType,
-    Stance,
     SubQuestion,
     TaskStatus,
 )
@@ -340,31 +338,8 @@ def retrieve_source_node(payload: dict[str, Any], services: GraphServices) -> di
                         )
                     )
                     continue
-                data = result.data
-                quote = json.dumps(data, ensure_ascii=False)[:1200]
                 evidence.append(
-                    Evidence(
-                        evidence_id=f"ev-tool-{sha256_text(gene + payload['task_id'])[:12]}",
-                        source_type=SourceType.OMICS,
-                        source_id=f"HPA:{gene}",
-                        title=f"[HPA] {gene} expression profile",
-                        chunk_id=f"tool:{gene}",
-                        quote=quote,
-                        locator=Locator(url=data.get("source_url")),
-                        entity_ids=[
-                            item
-                            for item in [data.get("ensembl")]
-                            if item
-                        ],
-                        species="Homo sapiens",
-                        sample="tissue / single cell / blood",
-                        method="RNA expression profiling",
-                        stance=Stance.UNKNOWN,
-                        level=EvidenceLevel.UNKNOWN,
-                        acl_scope="public",
-                        scores=ScoreSet(),
-                        tool_call_id=f"tool-omics-{gene}",
-                    )
+                    evidence_from_tool(result, gene, payload["task_id"])
                 )
                 events.append(
                     _event(node_name, f"组学工具返回 {gene}", gene=gene)
@@ -384,68 +359,9 @@ def retrieve_source_node(payload: dict[str, Any], services: GraphServices) -> di
             use_rerank=None,
         )
         for hit in result.hits:
-            metadata = hit.metadata or {}
-            acl_scope = str(metadata.get("acl_scope") or "public")
-            if acl_scope not in allowed:
-                continue
-            document = services.document(str(metadata.get("doc_id") or hit.doc_id))
-            quote = hit.text.strip()
-            if not quote:
-                continue
-            page = metadata.get("page_number")
-            page_number = int(page) if isinstance(page, int) and page > 0 else None
-            evidence.append(
-                Evidence(
-                    evidence_id=f"ev-{hit.chunk_id}",
-                    source_type=source,
-                    source_id=str(metadata.get("doc_id") or hit.doc_id),
-                    title=str(
-                        metadata.get("title")
-                        or (document.title if document else source.value)
-                    ),
-                    chunk_id=hit.chunk_id,
-                    quote=quote[:1200],
-                    locator=Locator(
-                        page=page_number,
-                        section=metadata.get("section_path") or None,
-                        figure=metadata.get("figure") or None,
-                        table=metadata.get("table_ref") or None,
-                        doi=document.doi if document else None,
-                        patent_no=(
-                            document.metadata.get("patent_no")
-                            if document
-                            else None
-                        ),
-                        experiment_id=(
-                            document.metadata.get("experiment_id")
-                            if document
-                            else None
-                        ),
-                        url=document.url if document else None,
-                    ),
-                    entity_ids=(
-                        list(document.entity_ids)
-                        if document
-                        else [
-                            item
-                            for item in str(metadata.get("entity_ids_json", "")).split(",")
-                            if item
-                        ]
-                    ),
-                    species=str(metadata.get("species") or "unknown"),
-                    sample=str(metadata.get("sample") or "") or None,
-                    method=str(metadata.get("method") or "") or None,
-                    stance=Stance.UNKNOWN,
-                    level=EvidenceLevel.UNKNOWN,
-                    acl_scope=acl_scope,
-                    scores=ScoreSet(
-                        dense=hit.dense_score,
-                        sparse=hit.sparse_score,
-                        rrf=hit.rrf_score,
-                        rerank=hit.rerank_score,
-                    ),
-                )
-            )
+            item = evidence_from_hit(hit, source, services, allowed)
+            if item is not None:
+                evidence.append(item)
         events.append(
             _event(
                 node_name,
@@ -520,6 +436,226 @@ def normalize_node(state: ResearchState, services: GraphServices) -> dict[str, A
     }
 
 
+def counter_evidence_node(
+    state: ResearchState,
+    services: GraphServices,
+) -> dict[str, Any]:
+    budget = _as_budget(state.get("budget"), services)
+    allowed = set(state.get("allowed_scopes", []))
+    events: list[Event] = []
+    errors: list[NodeError] = []
+    if budget.timed_out():
+        return {
+            "budget": budget,
+            "events": [_event("counter_evidence", "任务超时，跳过反例检索", "warning")],
+        }
+    remaining = max(0, budget.max_retrievals - budget.retrievals)
+    queries = services.retriever.counter_evidence_queries(
+        state.get("question", "")
+    )[: min(3, remaining)]
+    if not queries:
+        return {
+            "budget": budget,
+            "events": [
+                _event(
+                    "counter_evidence",
+                    "检索预算不足，跳过反例检索",
+                    "warning",
+                )
+            ],
+        }
+
+    counter: list[Evidence] = []
+    for query in queries:
+        try:
+            result = services.retriever.retrieve(
+                query,
+                k=4,
+                allowed_scopes=list(allowed),
+                source_types=[
+                    SourceType.LITERATURE.value,
+                    SourceType.ELN.value,
+                    SourceType.REPORT.value,
+                ],
+                use_rerank=None,
+            )
+            for hit in result.hits:
+                source_value = str(
+                    (hit.metadata or {}).get("source_type")
+                    or SourceType.LITERATURE.value
+                )
+                try:
+                    source = SourceType(source_value)
+                except ValueError:
+                    source = SourceType.LITERATURE
+                item = evidence_from_hit(hit, source, services, allowed)
+                if item is not None:
+                    item.metadata["retrieval_intent"] = "counter_evidence"
+                    item.metadata["counter_query"] = query
+                    counter.append(item)
+        except Exception as exc:  # noqa: BLE001
+            errors.append(_error("counter_evidence", exc))
+
+    budget.consume_retrievals(len(queries))
+    existing = state.get("final_evidence", [])
+    combined = _dedupe_by_chunk(existing + counter)
+    events.append(
+        _event(
+            "counter_evidence",
+            f"反例检索新增 {len(counter)} 条候选",
+            queries=queries,
+            combined_count=len(combined),
+        )
+    )
+    return {
+        "counter_evidence": counter,
+        "final_evidence": combined,
+        "budget": budget,
+        "events": events,
+        "errors": errors,
+    }
+
+
+def grade_node(state: ResearchState, services: GraphServices) -> dict[str, Any]:
+    final_evidence = services.grader.grade_all(
+        state.get("final_evidence", [])
+    )
+    counter_ids = {
+        item.evidence_id for item in state.get("counter_evidence", [])
+    }
+    counter_evidence = [
+        item for item in final_evidence if item.evidence_id in counter_ids
+    ]
+    counts: dict[str, int] = {}
+    for item in final_evidence:
+        counts[item.level.value] = counts.get(item.level.value, 0) + 1
+    return {
+        "final_evidence": final_evidence,
+        "counter_evidence": counter_evidence,
+        "events": [
+            _event(
+                "grade",
+                f"完成 {len(final_evidence)} 条证据分级",
+                level_counts=counts,
+            )
+        ],
+    }
+
+
+def synthesize_node(state: ResearchState, services: GraphServices) -> dict[str, Any]:
+    evidence = state.get("final_evidence", [])
+    budget = _as_budget(state.get("budget"), services)
+    if not evidence:
+        return {
+            "claims": [],
+            "assessment": "没有可用证据，无法形成研究结论。",
+            "conflicts": [],
+            "gaps": ["缺少可用证据"],
+            "next_steps": [],
+            "llm_used": False,
+            "events": [
+                _event("synthesize", "无证据，跳过 claims 综合", "warning")
+            ],
+        }
+    use_llm = (
+        services.llm
+        if budget.llm_calls < budget.max_llm_calls
+        else None
+    )
+    result = services.synthesizer.synthesize(
+        state.get("question", ""),
+        evidence,
+        llm=use_llm,
+    )
+    if result.llm_used:
+        budget.consume_llm()
+    return {
+        "claims": result.claims,
+        "assessment": result.assessment,
+        "conflicts": result.conflicts,
+        "gaps": result.gaps,
+        "next_steps": result.next_steps,
+        "llm_used": result.llm_used,
+        "budget": budget,
+        "events": [
+            _event(
+                "synthesize",
+                f"生成 {len(result.claims)} 条 claims",
+                llm_used=result.llm_used,
+                model=result.model,
+                conflicts=len(result.conflicts),
+            )
+        ],
+    }
+
+
+def verify_node(state: ResearchState, services: GraphServices) -> dict[str, Any]:
+    verifier = services.verifier or CitationVerifier(services.chunks)
+    claims, notes = verifier.verify(
+        state.get("claims", []),
+        state.get("final_evidence", []),
+        state.get("allowed_scopes", []),
+    )
+    return {
+        "claims": claims,
+        "verify_notes": notes,
+        "events": [
+            _event(
+                "verify",
+                f"引用校验后保留 {len(claims)} 条 claims",
+                dropped=len(notes),
+            )
+        ],
+    }
+
+
+def gaps_node(state: ResearchState, services: GraphServices) -> dict[str, Any]:
+    evidence = state.get("final_evidence", [])
+    claims = state.get("claims", [])
+    conflicts = state.get("conflicts", [])
+    gaps = list(state.get("gaps", []) or [])
+    next_steps = list(state.get("next_steps", []) or [])
+    if not gaps:
+        gaps = rule_gaps(state.get("question", ""), evidence, conflicts)
+    if not next_steps:
+        next_steps = rule_next_steps(conflicts, evidence)
+    if evidence and not claims:
+        gaps.append("claims 未通过引用/ACL 校验，需人工复核证据与结论映射。")
+    gaps = _dedupe_strings(gaps, limit=8)
+    next_steps = _dedupe_strings(next_steps, limit=6)
+    return {
+        "gaps": gaps,
+        "next_steps": next_steps,
+        "events": [
+            _event(
+                "gaps",
+                f"识别 {len(gaps)} 个数据缺口",
+                gaps=gaps,
+            )
+        ],
+    }
+
+
+def _dedupe_by_chunk(items: list[Evidence]) -> list[Evidence]:
+    merged: dict[str, Evidence] = {}
+    for item in items:
+        existing = merged.get(item.chunk_id)
+        if existing is None or _evidence_score(item) > _evidence_score(existing):
+            merged[item.chunk_id] = item
+    return sorted(merged.values(), key=_evidence_score, reverse=True)
+
+
+def _dedupe_strings(items: list[str], limit: int) -> list[str]:
+    result: list[str] = []
+    for item in items:
+        text = " ".join(str(item).split())
+        if text and text not in result:
+            result.append(text)
+        if len(result) >= limit:
+            break
+    return result
+
+
 def finalize_node(state: ResearchState, services: GraphServices) -> dict[str, Any]:
     status = state.get("status", TaskStatus.RUNNING.value)
     events = [_event("finalize", "生成研究底稿", status=status)]
@@ -553,46 +689,26 @@ def finalize_node(state: ResearchState, services: GraphServices) -> dict[str, An
         }
 
     question = state.get("question", "")
-    entities = state.get("entities", [])
-    lines = [
-        "# 研究证据底稿（P4 检索阶段）",
-        "",
-        f"**问题**：{question}",
-        f"**用户/项目**：{state.get('user_id')} / {state.get('project_id')}",
-        f"**实体**：{', '.join(entity.name for entity in entities) or '未识别'}",
-        f"**可见范围**：{', '.join(state.get('allowed_scopes', []))}",
-        "",
-        "## 子问题",
-    ]
-    for item in state.get("subquestions", []):
-        lines.append(
-            f"- `{item.id}` {item.intent}: "
-            f"{', '.join(source.value for source in item.sources)}"
-        )
-    lines.extend(["", "## 检索证据"])
-    for index, item in enumerate(evidence[:20], start=1):
-        scores = item.scores
-        score_parts = []
-        for name in ("dense", "sparse", "rrf", "rerank"):
-            value = getattr(scores, name)
-            if value is not None:
-                score_parts.append(f"{name}={value:.4f}")
-        lines.extend(
-            [
-                f"### {index}. [{item.source_type.value}] {item.title}",
-                f"- 来源：`{item.source_id}`",
-                f"- 定位：{item.locator.section or item.locator.url or 'N/A'}",
-                f"- 分数：{', '.join(score_parts)}",
-                f"- 片段：{item.quote[:400]}",
-                "",
-            ]
-        )
-    lines.extend(
-        [
-            "## 说明",
-            "本文件是 P4 检索编排结果；证据分级、claims、反例、引用校验将在 P5 实现。",
-            "内部 ELN/项目/专利为 `DEMO / SYNTHETIC`，不得作为真实科学结论。",
-        ]
+    claims = state.get("claims", [])
+    assessment = state.get("assessment") or (
+        "证据存在但未形成通过校验的结论，需人工复核。"
+        if not claims
+        else ""
+    )
+    report = render_research_brief(
+        question=question,
+        user_id=str(state.get("user_id") or ""),
+        project_id=str(state.get("project_id") or ""),
+        allowed_scopes=state.get("allowed_scopes", []),
+        entities=state.get("entities", []),
+        assessment=assessment,
+        claims=claims,
+        conflicts=state.get("conflicts", []),
+        gaps=state.get("gaps", []),
+        next_steps=state.get("next_steps", []),
+        evidence=evidence,
+        llm_used=bool(state.get("llm_used")),
+        verify_notes=state.get("verify_notes", []),
     )
     source_counts: dict[str, int] = {}
     for item in evidence:
@@ -603,12 +719,15 @@ def finalize_node(state: ResearchState, services: GraphServices) -> dict[str, An
             "finalize",
             "研究底稿完成",
             evidence_count=len(evidence),
+            claim_count=len(claims),
+            verified_claims=sum(1 for item in claims if item.verified),
             source_counts=source_counts,
+            llm_used=bool(state.get("llm_used")),
         )
     )
     return {
         "status": TaskStatus.COMPLETED.value,
-        "report_md": "\n".join(lines),
+        "report_md": report,
         "events": events,
     }
 

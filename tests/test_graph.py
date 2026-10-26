@@ -94,6 +94,9 @@ class _FakeRetriever:
             dense_top_distance=0.3 if items else None,
         )
 
+    def counter_evidence_queries(self, query: str) -> list[str]:
+        return [f"{query} negative"]
+
 
 class _FakeOmics:
     def __init__(self, *, ok: bool = True) -> None:
@@ -183,7 +186,7 @@ class TestGraph(unittest.TestCase):
             types,
             {"literature", "eln", "report", "patent", "omics"},
         )
-        self.assertIn("研究证据底稿", result["report_md"])
+        self.assertIn("研究底稿", result["report_md"])
         self.assertEqual(result["errors"], [])
         self.assertTrue(result["events"])
 
