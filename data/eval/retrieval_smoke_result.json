@@ -1,0 +1,220 @@
+{
+  "summary": {
+    "questions": 9,
+    "answerable": 6,
+    "chroma_recall_at_5": 0.833,
+    "bm25_recall_at_5": 0.833,
+    "union_recall_at_5": 1.0,
+    "acl_leaks": 0,
+    "no_answer_top_distances": [
+      0.602578341960907,
+      0.5541714429855347
+    ]
+  },
+  "records": [
+    {
+      "id": "A1",
+      "question": "IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？",
+      "answerable": true,
+      "chroma_top_distance": 0.25217193365097046,
+      "chroma_ids": [
+        "eln:ELN-2022-117",
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-01",
+        "paper:PMC9097674",
+        "patent:DEMO-PAT-005"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2022-117",
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2024-018",
+        "eln:ELN-2026-002"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "union_hit": true,
+      "acl_leak": false
+    },
+    {
+      "id": "A2",
+      "question": "NOD2 敲低对 IL23R 表达有什么影响？",
+      "answerable": true,
+      "chroma_top_distance": 0.1849350929260254,
+      "chroma_ids": [
+        "eln:ELN-2023-020",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2025-012"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2023-020",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2025-012",
+        "eln:ELN-2019-881",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "union_hit": true,
+      "acl_leak": false
+    },
+    {
+      "id": "A3",
+      "question": "公司是否做过 IL23R 的体内验证？",
+      "answerable": true,
+      "chroma_top_distance": 0.3631221055984497,
+      "chroma_ids": [
+        "paper:PMC3192060",
+        "eln:ELN-2025-007",
+        "paper:PMC3043090",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2024-031"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2024-018",
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-003",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2026-009"
+      ],
+      "chroma_hit": false,
+      "bm25_hit": true,
+      "union_hit": true,
+      "acl_leak": false
+    },
+    {
+      "id": "A4",
+      "question": "UC 活检组织 IL23R mRNA 是否升高？",
+      "answerable": true,
+      "chroma_top_distance": 0.2525666356086731,
+      "chroma_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2023-055",
+        "paper:18653729",
+        "paper:PMC3192060",
+        "paper:18653729"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2025-019",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2023-055",
+        "report:PRJ-IBD-2026-01"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "union_hit": true,
+      "acl_leak": false
+    },
+    {
+      "id": "A5",
+      "question": "IL-23 在炎症性肠病发病机制中起什么作用？",
+      "answerable": true,
+      "chroma_top_distance": 0.30077874660491943,
+      "chroma_ids": [
+        "paper:PMC8042267",
+        "paper:PMC9097674",
+        "paper:PMC2118119",
+        "paper:PMC2118119",
+        "paper:PMC2118132"
+      ],
+      "bm25_ids": [
+        "report:PRJ-IBD-2026-01",
+        "paper:PMC7937623",
+        "paper:PMC7937623",
+        "paper:PMC7937623",
+        "paper:PMC2118119"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": false,
+      "union_hit": true,
+      "acl_leak": false
+    },
+    {
+      "id": "ACL1",
+      "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+      "answerable": false,
+      "chroma_top_distance": 0.3716225028038025,
+      "chroma_ids": [
+        "paper:22089030",
+        "paper:22089030",
+        "paper:PMC9097674",
+        "paper:PMC3173242",
+        "paper:PMC9097674"
+      ],
+      "bm25_ids": [
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-02",
+        "paper:PMC3234215",
+        "eln:ELN-2026-009",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "union_hit": false,
+      "acl_leak": false
+    },
+    {
+      "id": "ACL2",
+      "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+      "answerable": true,
+      "chroma_top_distance": 0.1966802477836609,
+      "chroma_ids": [
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "eln:ELN-ONCO-2024-777",
+        "report:PRJ-ONCO-2024-03",
+        "paper:22089030"
+      ],
+      "bm25_ids": [
+        "eln:ELN-ONCO-2024-777",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "paper:PMC3234215"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "union_hit": true,
+      "acl_leak": false
+    },
+    {
+      "id": "N1",
+      "question": "公司的请假制度是什么？",
+      "answerable": false,
+      "chroma_top_distance": 0.602578341960907,
+      "chroma_ids": [
+        "trial:NCT03798405",
+        "trial:NCT03223012",
+        "trial:NCT01863771",
+        "trial:NCT01863771",
+        "paper:PMC4577846"
+      ],
+      "bm25_ids": [],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "union_hit": false,
+      "acl_leak": false
+    },
+    {
+      "id": "N2",
+      "question": "公司的报销流程是什么？",
+      "answerable": false,
+      "chroma_top_distance": 0.5541714429855347,
+      "chroma_ids": [
+        "paper:PMC2904879",
+        "trial:NCT03798405",
+        "trial:NCT03223012",
+        "paper:PMC4714968",
+        "paper:PMC6176871"
+      ],
+      "bm25_ids": [],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "union_hit": false,
+      "acl_leak": false
+    }
+  ]
+}

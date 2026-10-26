@@ -16,6 +16,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+from app.utils.console import configure_console  # noqa: E402
+
+configure_console()
+
 from app.config import get_settings  # noqa: E402
 from app.ingest.pipeline import run_public, run_synthetic  # noqa: E402
 

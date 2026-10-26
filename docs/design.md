@@ -217,6 +217,17 @@ query
 
 不把 distance 转成伪百分比；保留原始分数。
 
+**P2 实际结果（2026-10-26）**：
+
+- 152 篇文档 → 4,953 个 chunk；
+- Chroma 4,953 条（BGE-M3 1024 维，余弦距离）；
+- BM25 4,953 条；
+- 9 条冒烟集：Chroma Recall@5 = 0.833，BM25 = 0.833，合并 = 1.0；
+- ACL 泄露 0；
+- 可答题 Top1 距离 0.18–0.36，无答案 0.55–0.60；
+- 初始阈值 `MAX_DISTANCE=0.45`，P8 需重新校准；
+- P3 将实现 RRF 融合，解决“A3 只有 BM25 命中、A5 只有 Chroma 命中”的互补问题。
+
 ### 6.3 ACL
 
 - chunk 带单值 `acl_scope`：`public` 或 `project:IBD-TX-07`；
@@ -293,8 +304,8 @@ query
 |---|---|
 | P0 | 环境、骨架、配置、SQLite、健康检查（已完成） |
 | P1 | 100 篇论文 + 10 试验 + HPA/Open Targets + 合成内部数据 + manifest（已完成） |
-| P2 | 本体/图谱、切块、BGE-M3 建库、BM25 |
-| P3 | 混合检索 + RRF + 可选 rerank + 组学工具 |
+| P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟（已完成） |
+| P3 | RRF 混合检索 + 查询扩展 + 可选 rerank + 组学工具 |
 | P4 | LangGraph 主图、fan-out、预算、SSE |
 | P5 | 反例、分级、claims、引用校验、研究底稿 |
 | P6 | FastAPI 业务接口 + 工作台页面 |

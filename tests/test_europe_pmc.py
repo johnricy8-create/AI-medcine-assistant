@@ -10,6 +10,7 @@ from app.ingest.europe_pmc import (
     infer_species,
     parse_full_text_xml,
 )
+from app.ingest.models import normalize_text
 from app.schemas import SourceType
 
 JATS_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
@@ -84,6 +85,10 @@ class TestEuropePmc(unittest.TestCase):
         self.assertEqual(document.doc_id, "paper:PMC123456")
         self.assertFalse(document.metadata["full_text_used"])
         self.assertIn("Fallback abstract", document.abstract)
+
+    def test_normalize_text_strips_html(self) -> None:
+        cleaned = normalize_text("<h4>Background &amp; aims</h4><p>IL23R &lt; 0.05</p>")
+        self.assertEqual(cleaned, "Background & aims IL23R < 0.05")
 
     def test_inference_helpers(self) -> None:
         self.assertEqual(infer_species("Mice were treated with DSS"), "Mus musculus")

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "A1",
+    "question": "IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？",
+    "expected_doc_ids": ["eln:ELN-2022-117", "report:PRJ-IBD-2026-01"],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": true
+  },
+  {
+    "id": "A2",
+    "question": "NOD2 敲低对 IL23R 表达有什么影响？",
+    "expected_doc_ids": ["eln:ELN-2023-020", "eln:ELN-2025-012", "report:PRJ-IBD-2026-02"],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": true
+  },
+  {
+    "id": "A3",
+    "question": "公司是否做过 IL23R 的体内验证？",
+    "expected_doc_ids": ["eln:ELN-2019-881", "eln:ELN-2024-003"],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": true
+  },
+  {
+    "id": "A4",
+    "question": "UC 活检组织 IL23R mRNA 是否升高？",
+    "expected_doc_ids": ["eln:ELN-2021-044", "eln:ELN-2023-055"],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": true
+  },
+  {
+    "id": "A5",
+    "question": "IL-23 在炎症性肠病发病机制中起什么作用？",
+    "expected_doc_ids": ["paper:PMC9097674"],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": true
+  },
+  {
+    "id": "ACL1",
+    "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+    "expected_doc_ids": [],
+    "should_not_contain": ["eln:ELN-ONCO-2024-777", "report:PRJ-ONCO-2024-03"],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": false
+  },
+  {
+    "id": "ACL2",
+    "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+    "expected_doc_ids": ["eln:ELN-ONCO-2024-777", "report:PRJ-ONCO-2024-03"],
+    "scopes": ["public", "project:ONCO-02"],
+    "answerable": true
+  },
+  {
+    "id": "N1",
+    "question": "公司的请假制度是什么？",
+    "expected_doc_ids": [],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": false
+  },
+  {
+    "id": "N2",
+    "question": "公司的报销流程是什么？",
+    "expected_doc_ids": [],
+    "scopes": ["public", "project:IBD-TX-07"],
+    "answerable": false
+  }
+]

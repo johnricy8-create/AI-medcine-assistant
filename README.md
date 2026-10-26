@@ -2,7 +2,25 @@
 
 基于 **LangChain + LangGraph** 的医药研发证据工作台。面向创新药项目科学家，把文献、专利、临床试验、内部 ELN、组学数据和项目报告连接起来，输出带证据等级、反例、数据缺口和可验证引用的研究底稿。
 
-> 当前状态：**P1 数据接入完成**。已具备配置、SQLite 全链路表结构、健康检查、100 篇公开论文/10 项试验/表达与图谱数据、38 条合成内部数据、manifest；检索、LangGraph、页面尚未实现。
+> 当前状态：**P2 索引与检索完成**。已具备科学切块、实体链接、BGE-M3/Chroma 向量索引、BM25、离线检索冒烟评估；LangGraph、业务 API、页面尚未实现。
+
+### P2 验证记录（2026-10-26）
+
+| 项 | 结果 |
+|---|---|
+| Chunk 数 | **4,953** |
+| Chroma 向量数 | **4,953**（BAAI/bge-m3，1024 维，余弦距离） |
+| BM25 文档数 | **4,953** |
+| Chroma Recall@5 | **0.833**（5/6 可答题） |
+| BM25 Recall@5 | **0.833** |
+| Chroma ∪ BM25 Recall@5 | **1.000**（两者互补） |
+| ACL 越权泄露 | **0** |
+| 无答案 Top1 距离 | 0.55–0.60；可答题 Top1 0.18–0.36 |
+| 初始距离阈值 | `MAX_DISTANCE=0.45`（冒烟集校准） |
+| 测试 | **51 项全部通过** |
+| 持久化 | 关闭进程后重新打开 Chroma，count/search 正常 |
+
+> P3 将把 Chroma 与 BM25 做 RRF 融合；冒烟集显示 A3 只有 BM25 命中、A5 只有 Chroma 命中，正好说明混合检索的必要性。
 
 ### P1 验证记录（2026-10-26）
 
@@ -142,6 +160,34 @@ uv run python scripts/fetch_data.py --skip-synthetic
 - `data/processed/omics/hpa_expression.json`：HPA 结构化表达数据；
 - `data/internal_demo/`：合成 ELN、项目报告、专利、ACL。
 
+### 3.5 重建索引与检索冒烟
+
+```powershell
+# 只切块 + BM25，不调用 Embedding（适合先检查切块质量）
+uv run python scripts/rebuild_index.py --chunks-only
+
+# 完整建库：BGE-M3 → Chroma + BM25
+uv run python scripts/rebuild_index.py
+
+# 小规模建库（单独 collection，避免覆盖完整索引）
+uv run python scripts/rebuild_index.py --limit 20 --collection pharma_research_smoke
+
+# 查看 Chroma 与 BM25 Top-K
+uv run python scripts/query_index.py "IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？"
+
+# 离线检索冒烟评估
+uv run python scripts/eval_retrieval.py
+```
+
+产物：
+
+- `storage/chroma/`：Chroma 持久化索引（gitignore）；
+- `data/processed/chunks.jsonl`：4,953 个 chunk（gitignore）；
+- `data/processed/index_manifest.json`：索引版本/模型/维度/哈希；
+- `data/eval/retrieval_smoke_result.json`：Chroma/BM25 命中与 ACL 检查结果。
+
+> Chroma 在 Windows 下需要显式关闭；`VectorStore.close()` 会停止后台 system，避免重新打开时报 `Error loading hnsw index`。
+
 ---
 
 ## 4. 启动
@@ -193,23 +239,36 @@ uv run python -m unittest discover -s tests -v
 │  │  ├─ expression.py     # HPA 表达数据
 │  │  ├─ open_targets.py   # 靶点-疾病图谱
 │  │  ├─ synthetic.py      # 合成 ELN/项目/专利/ACL
+│  │  ├─ chunker.py        # 科学切块（父子块/稳定 ID）
+│  │  ├─ entity_linker.py  # 本体别名/边界/模糊匹配
 │  │  ├─ models.py         # 标准化文档 / manifest 模型
 │  │  ├─ manifest.py       # JSONL / manifest 幂等写入
 │  │  └─ pipeline.py       # 抓取编排
+│  ├─ retrieval/
+│  │  ├─ embeddings.py     # 硅基流动 BGE-M3 + 向量校验
+│  │  ├─ vector_store.py   # Chroma + ACL 过滤 + 显式 close
+│  │  ├─ bm25.py           # jieba + rank_bm25
+│  │  └─ index_builder.py  # 切块→实体→Chroma/BM25→manifest
+│  ├─ utils/
+│  │  └─ console.py        # Windows UTF-8 控制台
 │  └─ storage/
 │     ├─ db.py             # SQLite 连接与初始化
 │     └─ schema.sql        # 任务/证据/claim/评审/快照/审计表
 ├─ data/
 │  ├─ internal_demo/       # 合成 ELN/项目/专利/ACL（提交）
 │  ├─ ontology/            # 真实公开 ID 的实体本体（提交）
+│  ├─ eval/                # 检索冒烟集与结果（提交）
 │  ├─ manifest.jsonl       # 152 条数据来源/许可/哈希（提交）
 │  ├─ raw/                 # 原始抓取（gitignore）
-│  └─ processed/           # 标准化文档/图谱/组学（gitignore）
+│  └─ processed/           # 标准化文档/图谱/组学/chunks（gitignore）
 ├─ docs/                   # 设计文档
 ├─ scripts/
 │  ├─ check_services.py    # 真实 Key 连通性检查
 │  ├─ fetch_data.py        # P1 数据抓取
-│  └─ seed_internal_demo.py
+│  ├─ seed_internal_demo.py
+│  ├─ rebuild_index.py     # P2 切块 + BGE-M3/Chroma + BM25
+│  ├─ query_index.py       # 检索冒烟
+│  └─ eval_retrieval.py    # 离线检索评估
 ├─ tests/
 ├─ storage/                # 运行时数据（gitignore）
 ├─ .env.example
@@ -250,6 +309,10 @@ uv run python -m unittest discover -s tests -v
 8. **专利限制**：当前公开专利 API（PatentsView/EPO/USPTO/Google Patents）需要 Key 或被网络策略拦截；第一版专利为 `DEMO-PAT-*` 合成数据，后续可替换真实适配器。
 9. **合成内部数据必须标注**：ELN/项目/ACL 为 `DEMO / SYNTHETIC`，不得冒充真实企业数据。
 10. **全文长度**：单篇论文入库文本上限 80,000 字符，超出标记 `truncated=true`，避免异常长指南污染索引。
+11. **Chroma 必须显式关闭**：Windows 下 `VectorStore.close()` 停止后台 system；否则重开可能报 `Error loading hnsw index`。
+12. **HNSW 参数**：`HNSW_SYNC_THRESHOLD=100000`，避免建库过程中后台 compaction 干扰；关库前等待 1 秒。
+13. **距离阈值不是通用值**：`MAX_DISTANCE=0.45` 仅基于当前 9 条冒烟集校准；P8 必须在 30–40 条评估集上重新校准。
+14. **混合检索是必需的**：Chroma 与 BM25 单独 Recall@5 都是 0.833，合并后 1.0；P3 用 RRF 融合。
 
 ---
 
@@ -258,8 +321,8 @@ uv run python -m unittest discover -s tests -v
 | 阶段 | 内容 | 状态 |
 |---|---|---|
 | P1 | 100 篇公开论文 + 10 试验 + HPA/Open Targets + 合成 ELN/项目/专利/ACL + manifest | **已完成** |
-| P2 | 本体/图谱、科学切块、BGE-M3 建库、BM25 | 下一步 |
-| P3 | 混合检索 + RRF + 可选 rerank + 组学工具 | 待开始 |
+| P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟 | **已完成** |
+| P3 | RRF 混合检索 + 查询扩展 + 可选 rerank + 组学工具 | 下一步 |
 | P4 | LangGraph 主图、fan-out、预算、降级、SSE | 待开始 |
 | P5 | 反例、证据分级、claims、引用校验、研究底稿 | 待开始 |
 | P6 | FastAPI 业务接口 + 研究工作台页面 | 待开始 |

@@ -523,9 +523,11 @@ def _build_patents() -> list[dict[str, Any]]:
 
 def _eln_document(record: dict[str, Any]) -> NormalizedDocument:
     title = f"[DEMO] {record['experiment_id']} {record['title']}"
+    study_type = _study_type(record)
     sections = [
         DocumentSection(heading="Objective", text=record["title"], kind="objective"),
         DocumentSection(heading="Conditions", text=record["conditions"], kind="conditions"),
+        DocumentSection(heading="Study type", text=study_type, kind="study_type"),
         DocumentSection(heading="Method", text=record["method"], kind="method"),
         DocumentSection(heading="Results", text=record["result"], kind="results"),
         DocumentSection(heading="Conclusion", text=record["conclusion"], kind="conclusion"),
@@ -559,12 +561,25 @@ def _eln_document(record: dict[str, Any]) -> NormalizedDocument:
             "target": record["target"],
             "cell_type": record["cell_type"],
             "date": record["date"],
+            "study_type": study_type,
             "result": record["result"],
             "result_polarity": record["result_polarity"],
             "conclusion": record["conclusion"],
         },
     )
     return document.finalize()
+
+
+def _study_type(record: dict[str, Any]) -> str:
+    species = record.get("species", "")
+    sample = record.get("sample", "").lower()
+    if "organoid" in sample or "cell line" in sample:
+        return "体外实验 / in vitro"
+    if species == "Mus musculus":
+        return "体内验证 / in vivo mouse model"
+    if species == "Homo sapiens":
+        return "人体样本 / ex vivo"
+    return "unknown"
 
 
 def _report_document(report: dict[str, Any]) -> NormalizedDocument:

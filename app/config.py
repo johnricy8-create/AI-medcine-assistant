@@ -74,9 +74,18 @@ class Settings(BaseSettings):
     # ---------- 切块与检索 ----------
     chunk_size: int = Field(default=500, gt=0)
     chunk_overlap: int = Field(default=80, ge=0)
+    table_chunk_size: int = Field(default=1200, gt=0)
+    chunker_version: str = "scientific-v1"
+    enable_entity_linker: bool = True
     retrieval_k: int = Field(default=20, gt=0)
     max_context_chunks: int = Field(default=8, gt=0)
-    max_distance: float = Field(default=0.65, gt=0)
+    # 初始阈值基于 P2 冒烟集校准；P8 评估集上必须重新校准。
+    max_distance: float = Field(default=0.45, gt=0)
+    chroma_collection: str = "pharma_research"
+    index_batch_size: int = Field(default=64, ge=1, le=512)
+    embedding_timeout: int = Field(default=120, gt=0)
+    hnsw_batch_size: int = Field(default=1000, ge=1)
+    hnsw_sync_threshold: int = Field(default=100000, ge=1)
 
     # ---------- LangGraph 预算与停止条件 ----------
     max_plan_rounds: int = Field(default=2, ge=1)

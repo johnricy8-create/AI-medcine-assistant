@@ -9,10 +9,15 @@
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+
+from app.utils.console import configure_console  # noqa: E402
+
+configure_console()
 
 import httpx  # noqa: E402
 
@@ -24,27 +29,49 @@ def check_llm(settings) -> tuple[str, str]:
     if not settings.llm_configured():
         return "SKIP", "未配置 LLM_API_KEY"
     url = settings.llm_base_url.rstrip("/") + "/chat/completions"
-    payload = {
-        "model": settings.llm_model,
-        "messages": [{"role": "user", "content": "只回答：连接成功"}],
-        "temperature": 0.1,
-        "max_tokens": 16,
-    }
-    try:
-        with httpx.Client(timeout=settings.llm_timeout) as client:
-            response = client.post(
-                url,
-                headers={
-                    "Authorization": f"Bearer {settings.llm_api_key.get_secret_value()}"
-                },
-                json=payload,
-            )
-            response.raise_for_status()
-            data = response.json()
-            content = data["choices"][0]["message"]["content"]
-            return "OK", f"{settings.llm_model} -> {content.strip()[:40]}"
-    except Exception as exc:  # noqa: BLE001 - 诊断脚本需要展示真实错误
-        return "FAIL", f"{settings.llm_model}: {type(exc).__name__}: {exc}"
+    models = list(
+        dict.fromkeys(
+            [
+                settings.llm_model,
+                settings.llm_fallback_model,
+                "glm-4-flash",
+            ]
+        )
+    )
+    last_error = "unknown"
+    with httpx.Client(timeout=settings.llm_timeout) as client:
+        for model in models:
+            for attempt in range(1, 3):
+                payload = {
+                    "model": model,
+                    "messages": [{"role": "user", "content": "只回答：连接成功"}],
+                    "temperature": 0.1,
+                    "max_tokens": 32,
+                    "thinking": {"type": settings.llm_thinking},
+                }
+                try:
+                    response = client.post(
+                        url,
+                        headers={
+                            "Authorization": (
+                                f"Bearer {settings.llm_api_key.get_secret_value()}"
+                            )
+                        },
+                        json=payload,
+                    )
+                    if response.status_code == 200:
+                        data = response.json()
+                        content = data["choices"][0]["message"].get("content") or ""
+                        return "OK", f"{model} -> {content.strip()[:40]}"
+                    last_error = f"{model}: HTTP {response.status_code} {response.text[:120]}"
+                    if response.status_code in {429, 500, 502, 503, 504} and attempt == 1:
+                        time.sleep(2)
+                        continue
+                    break
+                except Exception as exc:  # noqa: BLE001
+                    last_error = f"{model}: {type(exc).__name__}: {exc}"
+                    break
+    return "FAIL", last_error
 
 
 def check_embedding(settings) -> tuple[str, str]:

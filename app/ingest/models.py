@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import html
+import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any
@@ -9,6 +11,8 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 from app.schemas import SourceType
+
+_HTML_TAG = re.compile(r"</?[a-zA-Z][^>]*>")
 
 
 def utcnow() -> datetime:
@@ -120,7 +124,9 @@ class FetchedDocument:
 
 
 def normalize_text(text: str) -> str:
-    """清理空白但保留段落边界。"""
+    """清理 HTML 标签、实体和空白，但保留段落边界。"""
+    text = html.unescape(text)
+    text = _HTML_TAG.sub(" ", text)
     lines = [" ".join(line.split()) for line in text.replace("\r\n", "\n").split("\n")]
     cleaned = "\n".join(line for line in lines if line)
     return cleaned.strip()
