@@ -89,6 +89,12 @@ class TestEuropePmc(unittest.TestCase):
         self.assertEqual(infer_species("Mice were treated with DSS"), "Mus musculus")
         self.assertEqual(infer_species("Human biopsies were analyzed"), "Homo sapiens")
         self.assertEqual(
+            infer_species(
+                "Human patients were studied; mice were used in a supporting experiment."
+            ),
+            "Homo sapiens",
+        )
+        self.assertEqual(
             extract_entity_ids("IL23R and NOD2 in Crohn disease"),
             ["ENSG00000162594", "ENSG00000167207", "MONDO_0005011"],
         )

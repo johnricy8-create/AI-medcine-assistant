@@ -118,6 +118,14 @@ class EuropePmcClient:
         return results[:max_records]
 
     def fetch_full_text(self, pmcid: str, raw_dir: Path) -> tuple[dict[str, Any] | None, str | None]:
+        target = raw_dir / f"{pmcid}.xml"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            try:
+                return parse_full_text_xml(target.read_bytes()), str(target)
+            except Exception:  # noqa: BLE001
+                target.unlink(missing_ok=True)
+
         url = FULLTEXT_URL.format(pmcid=pmcid)
         try:
             response = self._get(url)
@@ -126,8 +134,6 @@ class EuropePmcClient:
         content = response.content
         if not content.lstrip().startswith(b"<"):
             return None, None
-        target = raw_dir / f"{pmcid}.xml"
-        target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(content)
         try:
             parsed = parse_full_text_xml(content)
@@ -252,10 +258,13 @@ def parse_full_text_xml(xml_bytes: bytes) -> dict[str, Any]:
     """解析 Europe PMC JATS XML，返回标题、摘要和章节/图表。"""
     tree = etree.fromstring(xml_bytes)
     title = _first_text(tree, ".//*[local-name()='article-title']")
-    abstract_parts = [
-        _text(element)
-        for element in tree.xpath("//*[local-name()='abstract']")
-    ]
+    abstract_parts: list[str] = []
+    for element in tree.xpath("//*[local-name()='abstract']"):
+        paragraphs = element.xpath(".//*[local-name()='p']")
+        if paragraphs:
+            abstract_parts.append("\n".join(_text(p) for p in paragraphs))
+        else:
+            abstract_parts.append(_text(element))
     abstract = "\n".join(_dedupe_nonempty(abstract_parts))
 
     sections: list[DocumentSection] = []
@@ -358,6 +367,11 @@ def build_document(
         if author.strip()
     ][:20]
 
+    title_abstract = f"{title}\n{abstract}"
+    primary_species = infer_species(title_abstract)
+    if primary_species == "unknown":
+        primary_species = infer_species(text)
+
     metadata = {
         "pmid": record.get("pmid"),
         "pmcid": record.get("pmcid"),
@@ -389,9 +403,9 @@ def build_document(
         url=f"https://europepmc.org/article/{record.get('source') or 'MED'}/{record.get('id')}",
         license=license_value,
         acl_scope="public",
-        species=infer_species(text),
-        sample=infer_sample(text),
-        method=infer_method(text),
+        species=primary_species,
+        sample=infer_sample(title_abstract) or infer_sample(text),
+        method=infer_method(title_abstract) or infer_method(text),
         entity_ids=extract_entity_ids(text),
         metadata=metadata,
     )
@@ -432,12 +446,23 @@ def _truncate_sections(
 
 def infer_species(text: str) -> str:
     lower = text.lower()
+    # 先判断人源：人群/GWAS/活检论文常在方法里提到小鼠，但主要证据仍是人体。
+    if any(
+        word in lower
+        for word in (
+            "human",
+            "patient",
+            "patients",
+            "biopsy",
+            "biopsies",
+            "cases and controls",
+        )
+    ):
+        return "Homo sapiens"
     if any(word in lower for word in ("mouse", "mice", "murine")):
         return "Mus musculus"
     if any(word in lower for word in ("rat ", "rats", "rat.")):
         return "Rattus norvegicus"
-    if any(word in lower for word in ("human", "patient", "patients", "biopsy", "biopsies")):
-        return "Homo sapiens"
     return "unknown"
 
 
