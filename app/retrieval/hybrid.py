@@ -130,6 +130,7 @@ class HybridRetriever:
         *,
         k: int = 8,
         allowed_scopes: list[str] | None = None,
+        source_types: list[str] | None = None,
         use_rerank: bool | None = None,
     ) -> HybridResult:
         expanded = self.expander.expand(query)
@@ -137,11 +138,13 @@ class HybridRetriever:
             expanded.dense_query,
             k=self.settings.retrieval_k,
             allowed_scopes=allowed_scopes,
+            source_types=source_types,
         )
         sparse_hits = self.bm25.search(
             expanded.sparse_query,
             k=self.settings.retrieval_k,
             allowed_scopes=allowed_scopes,
+            source_types=source_types,
         )
         fused = rrf_fuse(
             dense_hits,

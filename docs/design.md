@@ -239,6 +239,22 @@ query
 - ACL 越权泄露 0；
 - 组学工具支持 HPA IL23R/NOD2 表达查询。
 
+**P4 实际结果（2026-10-26）**：
+
+- 主图：`intake → link_entities → plan → Send fan-out → normalize → finalize`；
+- 规则规划器生成 3 个子问题，约 5 个检索分支（文献、组学、ELN、报告、专利）；
+- 单源失败记录 `NodeError`，不阻塞其他来源；
+- 无权项目直接 `blocked`，guest 仅 public；
+- 注入指令 `blocked`；
+- 证据按 rerank/RRF 排序，ACL 二次过滤，上限 40；
+- 86 项测试通过。
+
+**工程修复**：
+
+- LangGraph `Send` 并行调用 Chroma 时，client 对线程归属敏感；`VectorStore` 改为单线程 executor，所有 Chroma 操作在固定线程执行，解决 tenant 并发错误；
+- `evidence` 字段用 reducer 合并 fan-out；`normalize` 的排序写入独立 `final_evidence`，避免 reducer 保留旧顺序；
+- Chroma 多条件过滤使用 `$and`。
+
 ### 6.3 ACL
 
 - chunk 带单值 `acl_scope`：`public` 或 `project:IBD-TX-07`；
@@ -317,7 +333,7 @@ query
 | P1 | 100 篇论文 + 10 试验 + HPA/Open Targets + 合成内部数据 + manifest（已完成） |
 | P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟（已完成） |
 | P3 | RRF 混合检索 + 查询扩展 + rerank + 组学工具（已完成） |
-| P4 | LangGraph 主图、fan-out、预算、SSE |
+| P4 | LangGraph 主图、fan-out、预算、ACL、事件、CLI（已完成） |
 | P5 | 反例、分级、claims、引用校验、研究底稿 |
 | P6 | FastAPI 业务接口 + 工作台页面 |
 | P7 | 人工评审、快照、审计、权限测试 |

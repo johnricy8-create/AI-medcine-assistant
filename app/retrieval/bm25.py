@@ -118,16 +118,20 @@ class BM25Index:
         *,
         k: int = 8,
         allowed_scopes: list[str] | None = None,
+        source_types: list[str] | None = None,
     ) -> list[SearchHit]:
         if not self._bm25 or not query.strip():
             return []
         scores = self._bm25.get_scores(tokenize(query))
         allowed = set(allowed_scopes) if allowed_scopes else None
+        sources = set(source_types) if source_types else None
         ranked: list[tuple[float, Chunk]] = []
         for score, chunk in zip(scores, self.chunks):
             if score <= 0:
                 continue
             if allowed is not None and chunk.acl_scope not in allowed:
+                continue
+            if sources is not None and chunk.source_type.value not in sources:
                 continue
             ranked.append((float(score), chunk))
         ranked.sort(key=lambda item: item[0], reverse=True)

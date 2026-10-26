@@ -47,6 +47,9 @@ class TaskStatus(str, Enum):
     RUNNING = "running"
     PENDING_REVIEW = "pending_review"
     COMPLETED = "completed"
+    NO_EVIDENCE = "no_evidence"
+    BLOCKED = "blocked"
+    BUDGET_EXHAUSTED = "budget_exhausted"
     FAILED = "failed"
     REJECTED = "rejected"
 

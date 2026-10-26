@@ -49,8 +49,8 @@ class _FakeVectorStore:
         self.hits = hits
         self.calls = []
 
-    def search(self, query, *, k=8, allowed_scopes=None):
-        self.calls.append((query, k, allowed_scopes))
+    def search(self, query, *, k=8, allowed_scopes=None, source_types=None):
+        self.calls.append((query, k, allowed_scopes, source_types))
         return self.hits[:k]
 
 
@@ -59,8 +59,8 @@ class _FakeBM25:
         self.hits = hits
         self.calls = []
 
-    def search(self, query, *, k=8, allowed_scopes=None):
-        self.calls.append((query, k, allowed_scopes))
+    def search(self, query, *, k=8, allowed_scopes=None, source_types=None):
+        self.calls.append((query, k, allowed_scopes, source_types))
         return self.hits[:k]
 
 
@@ -150,6 +150,7 @@ class TestHybridRetriever(unittest.TestCase):
         self.assertEqual(result.sparse_count, 2)
         self.assertEqual(self.vector.calls[0][2], ["public"])
         self.assertEqual(self.bm25.calls[0][2], ["public"])
+        self.assertIsNone(self.vector.calls[0][3])
 
     def test_rerank_success(self) -> None:
         result = self._retriever(_FakeReranker({0: 0.9, 1: 0.1})).retrieve(
