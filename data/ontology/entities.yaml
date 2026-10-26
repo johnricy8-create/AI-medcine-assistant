@@ -1,0 +1,107 @@
+# 科学实体本体（演示子集）
+# ID 来源：Ensembl / UniProt / NCBI Gene / MONDO / Cell Ontology
+# 这些是真实公开 ID；别名用于查询扩展与实体链接。
+version: 1
+sources:
+  - https://www.ensembl.org
+  - https://www.uniprot.org
+  - https://www.ncbi.nlm.nih.gov/gene
+  - https://www.ebi.ac.uk/ols4/ontologies/mondo
+  - https://www.ebi.ac.uk/ols4/ontologies/cl
+
+entities:
+  - canonical_id: ENSG00000162594
+    entity_type: gene
+    name: IL23R
+    aliases: [IL23R, IL-23R, IL-23 receptor, interleukin 23 receptor]
+    cross_ids:
+      ensembl: ENSG00000162594
+      uniprot: Q5VWK5
+      ncbi_gene: "149233"
+    species: Homo sapiens
+
+  - canonical_id: ENSG00000167207
+    entity_type: gene
+    name: NOD2
+    aliases: [NOD2, CARD15, NLRC2, IBD1, nucleotide binding oligomerization domain containing 2]
+    cross_ids:
+      ensembl: ENSG00000167207
+      uniprot: Q9HC29
+      ncbi_gene: "64127"
+    species: Homo sapiens
+
+  - canonical_id: ENSG00000110944
+    entity_type: gene
+    name: IL23A
+    aliases: [IL23A, IL-23, IL-23A, IL23P19, P19, interleukin 23 subunit alpha]
+    cross_ids:
+      ensembl: ENSG00000110944
+      uniprot: Q9NPF7
+      ncbi_gene: "51561"
+    species: Homo sapiens
+
+  - canonical_id: ENSG00000113302
+    entity_type: gene
+    name: IL12B
+    aliases: [IL12B, IL-12B, IL12P40, p40, interleukin 12B]
+    cross_ids:
+      ensembl: ENSG00000113302
+      uniprot: P29460
+      ncbi_gene: "3593"
+    species: Homo sapiens
+
+  - canonical_id: MONDO_0005265
+    entity_type: disease
+    name: inflammatory bowel disease
+    aliases: [IBD, inflammatory bowel disease, 炎症性肠病]
+    cross_ids:
+      mondo: MONDO_0005265
+    species: Homo sapiens
+
+  - canonical_id: MONDO_0005011
+    entity_type: disease
+    name: Crohn disease
+    aliases: [Crohn disease, Crohn's disease, CD, 克罗恩病]
+    cross_ids:
+      mondo: MONDO_0005011
+    species: Homo sapiens
+
+  - canonical_id: MONDO_0005101
+    entity_type: disease
+    name: ulcerative colitis
+    aliases: [ulcerative colitis, UC, 溃疡性结肠炎]
+    cross_ids:
+      mondo: MONDO_0005101
+    species: Homo sapiens
+
+  - canonical_id: CL_0000897
+    entity_type: cell
+    name: CD4-positive, alpha-beta memory T cell
+    aliases: [CD4 memory T cell, CD4+ memory T cell, CD4+CD45RO+ T cell, 记忆 T 细胞]
+    cross_ids:
+      cl: CL_0000897
+    species: Homo sapiens
+
+  - canonical_id: CL_0000815
+    entity_type: cell
+    name: regulatory T cell
+    aliases: [Treg, regulatory T cell, CD4+CD25+ T cell, 调节性 T 细胞]
+    cross_ids:
+      cl: CL_0000815
+    species: Homo sapiens
+
+  - canonical_id: CL_0001069
+    entity_type: cell
+    name: group 3 innate lymphoid cell
+    aliases: [ILC3, group 3 innate lymphoid cell, 3 型固有淋巴细胞]
+    cross_ids:
+      cl: CL_0001069
+    species: Homo sapiens
+
+  - canonical_id: CL_0000510
+    entity_type: cell
+    name: Paneth cell
+    aliases: [Paneth cell, 潘氏细胞]
+    cross_ids:
+      cl: CL_0000510
+    species: Homo sapiens

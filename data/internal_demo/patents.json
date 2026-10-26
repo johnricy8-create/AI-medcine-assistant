@@ -1,0 +1,399 @@
+[
+  {
+    "patent_no": "DEMO-PAT-001",
+    "title": "Methods for treating intestinal inflammation by modulating IL23R signaling",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2023-02-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-002",
+    "title": "Anti-IL23R antibodies and uses thereof in inflammatory bowel disease",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2024-03-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-003",
+    "title": "Biomarkers for predicting response to IL-23 receptor blockade",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2025-04-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-004",
+    "title": "Small molecule inhibitors of IL-23 receptor complex assembly",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2022-05-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-005",
+    "title": "IL23R variant genotyping for IBD risk stratification",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2023-06-15",
+    "jurisdiction": "WO",
+    "acl_scope": "project:IBD-TX-07",
+    "project_id": "IBD-TX-07"
+  },
+  {
+    "patent_no": "DEMO-PAT-006",
+    "title": "Combination therapy comprising IL-23 and TNF-alpha inhibitors",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2024-07-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-007",
+    "title": "NOD2 agonists for enhancing mucosal innate immunity",
+    "abstract": "Disclosed are compositions and methods related to NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a NOD2 modulator.",
+      "2. The method of claim 1, wherein the NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one NOD2 expression marker."
+    ],
+    "embodiments": [],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2025-08-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-008",
+    "title": "Methods of diagnosing Crohn's disease using NOD2 variants",
+    "abstract": "Disclosed are compositions and methods related to NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a NOD2 modulator.",
+      "2. The method of claim 1, wherein the NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2022-09-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-009",
+    "title": "NOD2-targeted autophagy modulators",
+    "abstract": "Disclosed are compositions and methods related to NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a NOD2 modulator.",
+      "2. The method of claim 1, wherein the NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2023-10-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-010",
+    "title": "Compositions for restoring NOD2 function in Paneth cells",
+    "abstract": "Disclosed are compositions and methods related to NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a NOD2 modulator.",
+      "2. The method of claim 1, wherein the NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2024-11-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-011",
+    "title": "Composite genetic score for inflammatory bowel disease",
+    "abstract": "Disclosed are compositions and methods related to IL23R/NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R/NOD2 modulator.",
+      "2. The method of claim 1, wherein the IL23R/NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R/NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R/NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2025-12-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-012",
+    "title": "IL23R-targeted CAR-T cells for autoimmune disease",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2022-01-15",
+    "jurisdiction": "WO",
+    "acl_scope": "project:ONCO-02",
+    "project_id": "ONCO-02"
+  },
+  {
+    "patent_no": "DEMO-PAT-013",
+    "title": "Sustained-release formulations of IL-23 receptor antagonists",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2023-02-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-014",
+    "title": "Methods for identifying IL23R-expressing T cell subsets",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2024-03-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-015",
+    "title": "NOD2 biomarker panel for predicting anti-TNF response",
+    "abstract": "Disclosed are compositions and methods related to NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a NOD2 modulator.",
+      "2. The method of claim 1, wherein the NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2025-04-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-016",
+    "title": "Bispecific antibodies targeting IL23R and IL12Rbeta1",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2022-05-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-017",
+    "title": "IL23R expression modulators for treating ulcerative colitis",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2023-06-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-018",
+    "title": "NOD2 knockout organoids and drug screening methods",
+    "abstract": "Disclosed are compositions and methods related to NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a NOD2 modulator.",
+      "2. The method of claim 1, wherein the NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2024-07-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-019",
+    "title": "RNA-based therapeutics targeting IL23R in IBD",
+    "abstract": "Disclosed are compositions and methods related to IL23R signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R modulator.",
+      "2. The method of claim 1, wherein the IL23R modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2025-08-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  },
+  {
+    "patent_no": "DEMO-PAT-020",
+    "title": "Machine learning model integrating IL23R and NOD2 variants",
+    "abstract": "Disclosed are compositions and methods related to IL23R/NOD2 signaling in intestinal inflammation. The disclosure claims therapeutic, diagnostic and biomarker uses. This is a synthetic patent record for a teaching demo.",
+    "claims": [
+      "1. A method of treating inflammatory bowel disease in a subject, comprising administering a therapeutically effective amount of a IL23R/NOD2 modulator.",
+      "2. The method of claim 1, wherein the IL23R/NOD2 modulator is an antibody or antigen-binding fragment.",
+      "3. The method of claim 1, wherein the subject has ulcerative colitis or Crohn's disease.",
+      "4. A biomarker panel comprising at least one IL23R/NOD2 expression marker."
+    ],
+    "embodiments": [
+      "Example 1: In vitro assay. Primary human CD4+ T cells were stimulated with IL-23 and treated with a IL23R/NOD2 modulator. Cytokine secretion was measured by ELISA. The example is synthetic and illustrative only.",
+      "Example 2: Animal model. A chronic colitis model was used to assess clinical score and histology. No numerical data are provided in this synthetic record."
+    ],
+    "assignee": "Qiyuan Bio (fictional)",
+    "public_date": "2022-09-15",
+    "jurisdiction": "WO",
+    "acl_scope": "public",
+    "project_id": null
+  }
+]

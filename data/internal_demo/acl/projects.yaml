@@ -1,0 +1,9 @@
+projects:
+- project_id: IBD-TX-07
+  name: IBD 靶点验证
+  description: 炎症性肠病（IBD）新型靶点验证项目，演示用项目空间。
+  acl_scope: project:IBD-TX-07
+- project_id: ONCO-02
+  name: 肿瘤免疫探索
+  description: 肿瘤免疫微环境探索项目，用于演示跨项目权限隔离。
+  acl_scope: project:ONCO-02

@@ -1,0 +1,78 @@
+[
+  {
+    "report_id": "PRJ-IBD-2026-01",
+    "project_id": "IBD-TX-07",
+    "title": "IL23R 靶点证据综述与下一步验证建议",
+    "sections": [
+      [
+        "Background",
+        "IL23R 是 IL-23 受体复合物的重要组成部分，GWAS 与功能研究均提示其参与 IBD 发病。项目组需要区分人体转录水平、蛋白水平、细胞类型定位和动物模型证据。"
+      ],
+      [
+        "Internal findings",
+        "内部 qPCR/RNA-seq/IHC 多为人 IBD 组织阳性；但 ELN-2019-881 与 ELN-2024-003 在两种小鼠模型中未观察到 IL23R 蛋白升高。ELN-2024-018 显示外周血 Treg 的 IL23R 低于 Teff，而 ELN-2026-009 在组织内未复现该差异。"
+      ],
+      [
+        "Interpretation",
+        "现有证据支持“人 IBD 炎症黏膜中 IL23R 转录/蛋白升高，主要位于 CD4+ 记忆 T 细胞和 ILC3 样细胞”，但物种差异、抗体特异性和组织消化偏差使蛋白层面证据仍不稳健。"
+      ],
+      [
+        "Recommendation",
+        "建议在标准化分选和抗体质控条件下，优先复现人 IBD 组织 CD4+ 记忆 T 细胞的表面 IL23R 蛋白检测；暂不将小鼠蛋白阴性结果外推为人体无效。"
+      ],
+      [
+        "Data gaps",
+        "缺少统一实验条件下的蛋白水平验证、缺少独立队列的 Treg/Teff 对照、缺少 IL23R 与 IL23A 的空间共定位。"
+      ]
+    ],
+    "acl_scope": "project:IBD-TX-07"
+  },
+  {
+    "report_id": "PRJ-IBD-2026-02",
+    "project_id": "IBD-TX-07",
+    "title": "NOD2 与 IL23R 通路交叉验证计划",
+    "sections": [
+      [
+        "Background",
+        "NOD2 是 IBD 最重要的易感基因之一，主要通过 innate immune 与 autophagy 通路发挥作用；项目组提出 NOD2 可能间接调节 IL23R/IL-23 轴。"
+      ],
+      [
+        "Internal findings",
+        "ELN-2023-020 在肠道类器官中未观察到 NOD2 敲低对 IL23R 转录的影响；ELN-2025-012 在 THP-1 中同样为阴性；ELN-2025-024 未观察到小鼠结肠 NOD2 蛋白稳定变化。"
+      ],
+      [
+        "Interpretation",
+        "现有内部数据不支持 NOD2 对 IL23R 的强直接调控，但不能排除细胞类型、刺激条件和时间窗口的影响。"
+      ],
+      [
+        "Recommendation",
+        "优先在原代单核细胞/树突状细胞和 IBD 患者类器官中重复 MDP 刺激实验；同时用公共 Open Targets 遗传证据评估 NOD2–IL23R 通路的独立性。"
+      ],
+      [
+        "Data gaps",
+        "缺少原代免疫细胞、缺少剂量/时间曲线、缺少蛋白互作与分泌因子检测。"
+      ]
+    ],
+    "acl_scope": "project:IBD-TX-07"
+  },
+  {
+    "report_id": "PRJ-ONCO-2024-03",
+    "project_id": "ONCO-02",
+    "title": "IL23R 在肿瘤浸润淋巴细胞中的探索性分析",
+    "sections": [
+      [
+        "Background",
+        "ONCO-02 项目探索 IL23R 在肿瘤免疫微环境中的潜在价值，与 IBD 项目共享靶点但数据隔离。"
+      ],
+      [
+        "Internal findings",
+        "ELN-ONCO-2024-777 显示肿瘤浸润 CD4+ T 细胞 IL23R+ 比例升高；样本量 8 例，未做独立验证。"
+      ],
+      [
+        "Recommendation",
+        "仅在 ONCO-02 项目空间内可见；对外分享需知识产权与合规审批。"
+      ]
+    ],
+    "acl_scope": "project:ONCO-02"
+  }
+]

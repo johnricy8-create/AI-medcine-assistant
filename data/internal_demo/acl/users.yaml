@@ -1,0 +1,29 @@
+users:
+- user_id: scientist_031
+  name: 项目科学家 A
+  groups:
+  - IBD-TX-07
+  allowed_scopes:
+  - public
+  - project:IBD-TX-07
+- user_id: scientist_045
+  name: 项目科学家 B
+  groups:
+  - ONCO-02
+  allowed_scopes:
+  - public
+  - project:ONCO-02
+- user_id: reviewer_001
+  name: 评审专家
+  groups:
+  - IBD-TX-07
+  - ONCO-02
+  allowed_scopes:
+  - public
+  - project:IBD-TX-07
+  - project:ONCO-02
+- user_id: guest
+  name: 只读访客
+  groups: []
+  allowed_scopes:
+  - public

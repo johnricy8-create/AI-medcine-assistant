@@ -24,6 +24,7 @@ class SourceType(str, Enum):
     REPORT = "report"
     OMICS = "omics"
     TRIAL = "trial"
+    DATABASE = "database"
 
 
 class Stance(str, Enum):
