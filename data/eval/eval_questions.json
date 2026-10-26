@@ -1,0 +1,343 @@
+[
+  {
+    "id": "A1",
+    "category": "multi_source",
+    "question": "IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？",
+    "expected_doc_ids": [
+      "eln:ELN-2022-117",
+      "report:PRJ-IBD-2026-01"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "literature",
+      "eln",
+      "report"
+    ]
+  },
+  {
+    "id": "A2",
+    "category": "negative_internal",
+    "question": "NOD2 敲低对 IL23R 表达有什么影响？",
+    "expected_doc_ids": [
+      "eln:ELN-2023-020",
+      "eln:ELN-2025-012",
+      "report:PRJ-IBD-2026-02"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln",
+      "report"
+    ]
+  },
+  {
+    "id": "A3",
+    "category": "in_vivo",
+    "question": "公司是否做过 IL23R 的体内验证？",
+    "expected_doc_ids": [
+      "eln:ELN-2019-881",
+      "eln:ELN-2024-003"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A4",
+    "category": "human_tissue",
+    "question": "UC 活检组织 IL23R mRNA 是否升高？",
+    "expected_doc_ids": [
+      "eln:ELN-2021-044",
+      "eln:ELN-2023-055"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A5",
+    "category": "mechanism",
+    "question": "IL-23 在炎症性肠病发病机制中起什么作用？",
+    "expected_doc_ids": [
+      "paper:PMC9097674"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "literature"
+    ]
+  },
+  {
+    "id": "A6",
+    "category": "human_tissue",
+    "question": "活动期溃疡性结肠炎炎症黏膜的 IL23R 转录水平如何？",
+    "expected_doc_ids": [
+      "eln:ELN-2021-044",
+      "eln:ELN-2023-055"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A7",
+    "category": "protein",
+    "question": "Crohn 病回肠组织 IL23R 蛋白免疫组化结果如何？",
+    "expected_doc_ids": [
+      "eln:ELN-2025-019"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A8",
+    "category": "cell_subset",
+    "question": "Treg 与 Teff 的 IL23R 表达有什么差异？",
+    "expected_doc_ids": [
+      "eln:ELN-2024-018",
+      "eln:ELN-2026-009"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A9",
+    "category": "single_cell",
+    "question": "IL23R 在 UC 结肠单细胞图谱中主要定位在哪类细胞？",
+    "expected_doc_ids": [
+      "eln:ELN-2026-002"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A10",
+    "category": "negative_internal",
+    "question": "NOD2 与 IL23R 通路是否有直接调控关系？",
+    "expected_doc_ids": [
+      "report:PRJ-IBD-2026-02",
+      "eln:ELN-2023-020"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln",
+      "report"
+    ]
+  },
+  {
+    "id": "A11",
+    "category": "genetics",
+    "question": "IL23R R381Q 变异对受体功能有什么影响？",
+    "expected_doc_ids": [
+      "paper:PMC3192060"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "literature"
+    ]
+  },
+  {
+    "id": "A12",
+    "category": "patent",
+    "question": "是否有针对 IL23R 的抗体专利？",
+    "expected_doc_ids": [
+      "patent:DEMO-PAT-002"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "patent"
+    ]
+  },
+  {
+    "id": "A13",
+    "category": "patent",
+    "question": "IL23R 变异基因分型与 IBD 风险分层有什么专利线索？",
+    "expected_doc_ids": [
+      "patent:DEMO-PAT-005"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "patent"
+    ]
+  },
+  {
+    "id": "A14",
+    "category": "omics",
+    "question": "IL23R 在正常组织中的 RNA 表达分布如何？",
+    "expected_doc_ids": [
+      "omics:hpa:IL23R"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "omics"
+    ]
+  },
+  {
+    "id": "A15",
+    "category": "in_vivo",
+    "question": "IL23R 蛋白在小鼠 DSS 结肠炎模型中的表达如何？",
+    "expected_doc_ids": [
+      "eln:ELN-2019-881"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln"
+    ]
+  },
+  {
+    "id": "A16",
+    "category": "patent",
+    "question": "IL23R 与 NOD2 联合机器学习模型的专利是什么？",
+    "expected_doc_ids": [
+      "patent:DEMO-PAT-020"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": true,
+    "source_types": [
+      "patent"
+    ]
+  },
+  {
+    "id": "ACL1",
+    "category": "acl_deny",
+    "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+    "expected_doc_ids": [],
+    "should_not_contain": [
+      "eln:ELN-ONCO-2024-777",
+      "report:PRJ-ONCO-2024-03"
+    ],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": false,
+    "source_types": [
+      "eln",
+      "report"
+    ]
+  },
+  {
+    "id": "ACL2",
+    "category": "acl_allow",
+    "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+    "expected_doc_ids": [
+      "eln:ELN-ONCO-2024-777",
+      "report:PRJ-ONCO-2024-03"
+    ],
+    "scopes": [
+      "public",
+      "project:ONCO-02"
+    ],
+    "answerable": true,
+    "source_types": [
+      "eln",
+      "report"
+    ]
+  },
+  {
+    "id": "N1",
+    "category": "no_answer",
+    "question": "公司的请假制度是什么？",
+    "expected_doc_ids": [],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": false,
+    "source_types": null
+  },
+  {
+    "id": "N2",
+    "category": "no_answer",
+    "question": "公司的报销流程是什么？",
+    "expected_doc_ids": [],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": false,
+    "source_types": null
+  },
+  {
+    "id": "N3",
+    "category": "no_answer",
+    "question": "GLP-1R 在糖尿病中的表达如何？",
+    "expected_doc_ids": [],
+    "scopes": [
+      "public",
+      "project:IBD-TX-07"
+    ],
+    "answerable": false,
+    "source_types": null
+  }
+]

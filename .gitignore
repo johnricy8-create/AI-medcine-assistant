@@ -12,8 +12,8 @@ __pycache__/
 .env.*
 !.env.example
 
-# Runtime data
-storage/
+# Runtime data（只忽略项目根目录 storage，不要误伤 app/storage）
+/storage/
 data/raw/
 data/processed/
 *.db

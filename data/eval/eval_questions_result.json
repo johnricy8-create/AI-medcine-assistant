@@ -1,0 +1,917 @@
+{
+  "summary": {
+    "questions": 21,
+    "answerable": 17,
+    "chroma_recall_at_5": 1.0,
+    "bm25_recall_at_5": 0.824,
+    "union_recall_at_5": 1.0,
+    "acl_leaks": 0,
+    "no_answer_top_distances": [
+      0.602578341960907,
+      0.5541714429855347,
+      0.4561859369277954
+    ],
+    "hybrid_recall_at_5": 1.0,
+    "reranked": true
+  },
+  "records": [
+    {
+      "id": "A1",
+      "question": "IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？",
+      "answerable": true,
+      "chroma_top_distance": 0.25217193365097046,
+      "hybrid_top_distance": 0.2250823974609375,
+      "chroma_ids": [
+        "eln:ELN-2022-117",
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-01",
+        "paper:PMC9097674",
+        "paper:PMC3173242"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2022-117",
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2024-018",
+        "eln:ELN-2026-002"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2022-117",
+        "report:PRJ-IBD-2026-01",
+        "paper:PMC9097674",
+        "paper:PMC3892977",
+        "paper:PMC2118132"
+      ],
+      "hybrid_terms": [
+        "CD4-positive, alpha-beta memory T cell",
+        "CD4 memory T cell",
+        "CD4+ memory T cell",
+        "CD4+CD45RO+ T cell",
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "inflammatory bowel disease",
+        "炎症性肠病",
+        "expression",
+        "mRNA",
+        "RNA-seq"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A2",
+      "question": "NOD2 敲低对 IL23R 表达有什么影响？",
+      "answerable": true,
+      "chroma_top_distance": 0.1849350929260254,
+      "hybrid_top_distance": 0.2343236207962036,
+      "chroma_ids": [
+        "eln:ELN-2023-020",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2025-012"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2023-020",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2025-012",
+        "eln:ELN-2019-881",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2023-020",
+        "eln:ELN-2025-012",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "CARD15",
+        "NLRC2",
+        "IBD1",
+        "nucleotide binding oligomerization domain containing 2",
+        "expression",
+        "mRNA",
+        "RNA-seq",
+        "qPCR"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A3",
+      "question": "公司是否做过 IL23R 的体内验证？",
+      "answerable": true,
+      "chroma_top_distance": 0.3711187243461609,
+      "hybrid_top_distance": 0.37576258182525635,
+      "chroma_ids": [
+        "eln:ELN-2025-007",
+        "eln:ELN-2024-031",
+        "eln:ELN-2026-009",
+        "eln:ELN-2019-881",
+        "eln:ELN-2023-055"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2024-018",
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-003",
+        "eln:ELN-2026-009",
+        "eln:ELN-2024-031"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2024-003",
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-031",
+        "eln:ELN-2026-009",
+        "eln:ELN-2024-018"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "in vivo",
+        "animal model",
+        "mouse",
+        "mice",
+        "validation",
+        "validate",
+        "experiment",
+        "internal",
+        "in-house"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A4",
+      "question": "UC 活检组织 IL23R mRNA 是否升高？",
+      "answerable": true,
+      "chroma_top_distance": 0.2523344159126282,
+      "hybrid_top_distance": 0.2883152365684509,
+      "chroma_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2023-055",
+        "eln:ELN-2025-019",
+        "eln:ELN-2026-002",
+        "eln:ELN-2019-881"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2025-019",
+        "eln:ELN-2023-055",
+        "eln:ELN-2024-018",
+        "eln:ELN-2024-003"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2024-003",
+        "eln:ELN-2023-055",
+        "eln:ELN-2025-019",
+        "eln:ELN-2019-881"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "ulcerative colitis",
+        "溃疡性结肠炎",
+        "RNA-seq",
+        "qPCR",
+        "biopsy",
+        "biopsies",
+        "tissue"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A5",
+      "question": "IL-23 在炎症性肠病发病机制中起什么作用？",
+      "answerable": true,
+      "chroma_top_distance": 0.30077874660491943,
+      "hybrid_top_distance": 0.23866480588912964,
+      "chroma_ids": [
+        "paper:PMC8042267",
+        "paper:PMC9097674",
+        "paper:PMC2118119",
+        "paper:PMC2118119",
+        "paper:PMC2118132"
+      ],
+      "bm25_ids": [
+        "paper:PMC7937623",
+        "paper:PMC7937623",
+        "paper:PMC7937623",
+        "paper:PMC2118119",
+        "paper:PMC7937623"
+      ],
+      "hybrid_ids": [
+        "paper:PMC9097674",
+        "paper:PMC8042267",
+        "paper:PMC2118132",
+        "paper:19253307",
+        "paper:PMC9097674"
+      ],
+      "hybrid_terms": [
+        "IL23A",
+        "IL-23A",
+        "IL23P19",
+        "P19",
+        "interleukin 23 subunit alpha",
+        "inflammatory bowel disease",
+        "IBD"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": false,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A6",
+      "question": "活动期溃疡性结肠炎炎症黏膜的 IL23R 转录水平如何？",
+      "answerable": true,
+      "chroma_top_distance": 0.3208574056625366,
+      "hybrid_top_distance": 0.28140246868133545,
+      "chroma_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2019-881",
+        "eln:ELN-2026-002",
+        "eln:ELN-2023-055",
+        "eln:ELN-2025-007"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2019-881",
+        "eln:ELN-2025-019",
+        "eln:ELN-2023-055",
+        "eln:ELN-2024-031"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2023-055",
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-031",
+        "eln:ELN-2025-019"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "ulcerative colitis",
+        "UC"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A7",
+      "question": "Crohn 病回肠组织 IL23R 蛋白免疫组化结果如何？",
+      "answerable": true,
+      "chroma_top_distance": 0.19914031028747559,
+      "hybrid_top_distance": 0.18975228071212769,
+      "chroma_ids": [
+        "eln:ELN-2025-019",
+        "eln:ELN-2025-007",
+        "eln:ELN-2019-881",
+        "eln:ELN-2026-002",
+        "eln:ELN-2024-003"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2025-019",
+        "eln:ELN-2026-009",
+        "eln:ELN-2024-003",
+        "eln:ELN-2024-031",
+        "eln:ELN-2019-881"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2025-019",
+        "eln:ELN-2019-881",
+        "eln:ELN-2021-044",
+        "eln:ELN-2024-003",
+        "eln:ELN-2024-031"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "Crohn disease",
+        "Crohn's disease",
+        "CD",
+        "克罗恩病",
+        "protein",
+        "Western blot",
+        "IHC",
+        "immunohistochemistry",
+        "tissue"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A8",
+      "question": "Treg 与 Teff 的 IL23R 表达有什么差异？",
+      "answerable": true,
+      "chroma_top_distance": 0.24395740032196045,
+      "hybrid_top_distance": 0.24361741542816162,
+      "chroma_ids": [
+        "eln:ELN-2024-018",
+        "eln:ELN-2026-009",
+        "eln:ELN-2023-055",
+        "eln:ELN-2025-012",
+        "eln:ELN-2024-003"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2024-018",
+        "eln:ELN-2026-009",
+        "eln:ELN-2023-055",
+        "eln:ELN-2019-881",
+        "eln:ELN-2025-012"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2026-009",
+        "eln:ELN-2024-018",
+        "eln:ELN-2024-003",
+        "eln:ELN-2019-881",
+        "eln:ELN-2023-055"
+      ],
+      "hybrid_terms": [
+        "regulatory T cell",
+        "CD4+CD25+ T cell",
+        "调节性 T 细胞",
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "expression",
+        "mRNA",
+        "RNA-seq",
+        "qPCR"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A9",
+      "question": "IL23R 在 UC 结肠单细胞图谱中主要定位在哪类细胞？",
+      "answerable": true,
+      "chroma_top_distance": 0.23004138469696045,
+      "hybrid_top_distance": 0.21830976009368896,
+      "chroma_ids": [
+        "eln:ELN-2026-002",
+        "eln:ELN-2023-055",
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-003",
+        "eln:ELN-2025-019"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2026-002",
+        "eln:ELN-2024-003",
+        "eln:ELN-2023-055",
+        "eln:ELN-2022-117",
+        "eln:ELN-2025-012"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2026-002",
+        "eln:ELN-2022-117",
+        "eln:ELN-2025-012",
+        "eln:ELN-2024-003",
+        "eln:ELN-2023-055"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "ulcerative colitis",
+        "溃疡性结肠炎",
+        "cell",
+        "cell type"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A10",
+      "question": "NOD2 与 IL23R 通路是否有直接调控关系？",
+      "answerable": true,
+      "chroma_top_distance": 0.24028122425079346,
+      "hybrid_top_distance": 0.251592755317688,
+      "chroma_ids": [
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2023-020",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "bm25_ids": [
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "hybrid_ids": [
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2023-020",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "CARD15",
+        "NLRC2",
+        "IBD1",
+        "nucleotide binding oligomerization domain containing 2"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A11",
+      "question": "IL23R R381Q 变异对受体功能有什么影响？",
+      "answerable": true,
+      "chroma_top_distance": 0.24436163902282715,
+      "hybrid_top_distance": 0.2478501796722412,
+      "chroma_ids": [
+        "paper:PMC3192060",
+        "paper:PMC3192060",
+        "paper:PMC3192060",
+        "paper:PMC3192060",
+        "paper:PMC3043090"
+      ],
+      "bm25_ids": [
+        "paper:PMC3043090",
+        "paper:PMC3043090",
+        "paper:PMC3043090",
+        "paper:PMC3043090",
+        "paper:PMC3043090"
+      ],
+      "hybrid_ids": [
+        "paper:PMC9097674",
+        "paper:PMC3192060",
+        "paper:PMC3192060",
+        "paper:PMC3043090",
+        "paper:PMC3192060"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": false,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A12",
+      "question": "是否有针对 IL23R 的抗体专利？",
+      "answerable": true,
+      "chroma_top_distance": 0.36464202404022217,
+      "hybrid_top_distance": 0.32128608226776123,
+      "chroma_ids": [
+        "patent:DEMO-PAT-016",
+        "patent:DEMO-PAT-002",
+        "patent:DEMO-PAT-013",
+        "patent:DEMO-PAT-017",
+        "patent:DEMO-PAT-019"
+      ],
+      "bm25_ids": [
+        "patent:DEMO-PAT-016",
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-017",
+        "patent:DEMO-PAT-019",
+        "patent:DEMO-PAT-001"
+      ],
+      "hybrid_ids": [
+        "patent:DEMO-PAT-003",
+        "patent:DEMO-PAT-004",
+        "patent:DEMO-PAT-016",
+        "patent:DEMO-PAT-002",
+        "patent:DEMO-PAT-019"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "patent",
+        "claims"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": false,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A13",
+      "question": "IL23R 变异基因分型与 IBD 风险分层有什么专利线索？",
+      "answerable": true,
+      "chroma_top_distance": 0.33942610025405884,
+      "hybrid_top_distance": 0.28272807598114014,
+      "chroma_ids": [
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-019",
+        "patent:DEMO-PAT-016"
+      ],
+      "bm25_ids": [
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-019",
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-019",
+        "patent:DEMO-PAT-005"
+      ],
+      "hybrid_ids": [
+        "patent:DEMO-PAT-011",
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-013",
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-002"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "inflammatory bowel disease",
+        "炎症性肠病",
+        "patent",
+        "claims"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A14",
+      "question": "IL23R 在正常组织中的 RNA 表达分布如何？",
+      "answerable": true,
+      "chroma_top_distance": 0.37862730026245117,
+      "hybrid_top_distance": 0.333193838596344,
+      "chroma_ids": [
+        "omics:hpa:IL23R",
+        "omics:hpa:IL23R",
+        "omics:hpa:IL23R",
+        "omics:hpa:IL23R",
+        "omics:hpa:NOD2"
+      ],
+      "bm25_ids": [
+        "omics:hpa:IL23R",
+        "omics:hpa:IL23R",
+        "omics:hpa:IL23R",
+        "omics:hpa:IL23R",
+        "omics:hpa:NOD2"
+      ],
+      "hybrid_ids": [
+        "omics:hpa:NOD2",
+        "omics:hpa:NOD2",
+        "omics:hpa:NOD2",
+        "omics:hpa:NOD2",
+        "omics:hpa:IL23R"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "expression",
+        "mRNA",
+        "RNA-seq",
+        "qPCR",
+        "tissue",
+        "biopsy"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A15",
+      "question": "IL23R 蛋白在小鼠 DSS 结肠炎模型中的表达如何？",
+      "answerable": true,
+      "chroma_top_distance": 0.181776225566864,
+      "hybrid_top_distance": 0.20851725339889526,
+      "chroma_ids": [
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-003",
+        "eln:ELN-2026-002",
+        "eln:ELN-2025-007",
+        "eln:ELN-2023-055"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-003",
+        "eln:ELN-2025-024",
+        "eln:ELN-2025-012",
+        "eln:ELN-2023-020"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-003",
+        "eln:ELN-2021-044",
+        "eln:ELN-2023-055",
+        "eln:ELN-2024-018"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "protein",
+        "Western blot",
+        "IHC",
+        "immunohistochemistry",
+        "expression",
+        "mRNA",
+        "RNA-seq",
+        "qPCR"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "A16",
+      "question": "IL23R 与 NOD2 联合机器学习模型的专利是什么？",
+      "answerable": true,
+      "chroma_top_distance": 0.31926047801971436,
+      "hybrid_top_distance": 0.2942676544189453,
+      "chroma_ids": [
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-011",
+        "patent:DEMO-PAT-002"
+      ],
+      "bm25_ids": [
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-011",
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-011"
+      ],
+      "hybrid_ids": [
+        "patent:DEMO-PAT-011",
+        "patent:DEMO-PAT-020",
+        "patent:DEMO-PAT-016",
+        "patent:DEMO-PAT-005",
+        "patent:DEMO-PAT-002"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "CARD15",
+        "NLRC2",
+        "IBD1",
+        "nucleotide binding oligomerization domain containing 2",
+        "patent",
+        "claims"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "ACL1",
+      "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+      "answerable": false,
+      "chroma_top_distance": 0.4255092144012451,
+      "hybrid_top_distance": 0.3771524429321289,
+      "chroma_ids": [
+        "eln:ELN-2026-002",
+        "eln:ELN-2025-012",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2023-020"
+      ],
+      "bm25_ids": [
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-02",
+        "eln:ELN-2026-009",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02"
+      ],
+      "hybrid_ids": [
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2021-044",
+        "eln:ELN-2024-031",
+        "eln:ELN-2025-012",
+        "eln:ELN-2022-117"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "cell",
+        "cell type"
+      ],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "hybrid_hit": false,
+      "union_hit": false,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "ACL2",
+      "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
+      "answerable": true,
+      "chroma_top_distance": 0.1966802477836609,
+      "hybrid_top_distance": 0.21502041816711426,
+      "chroma_ids": [
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "eln:ELN-ONCO-2024-777",
+        "report:PRJ-ONCO-2024-03"
+      ],
+      "bm25_ids": [
+        "eln:ELN-ONCO-2024-777",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03"
+      ],
+      "hybrid_ids": [
+        "eln:ELN-ONCO-2024-777",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "cell",
+        "cell type"
+      ],
+      "chroma_hit": true,
+      "bm25_hit": true,
+      "hybrid_hit": true,
+      "union_hit": true,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "N1",
+      "question": "公司的请假制度是什么？",
+      "answerable": false,
+      "chroma_top_distance": 0.602578341960907,
+      "hybrid_top_distance": 0.5369284152984619,
+      "chroma_ids": [
+        "trial:NCT03798405",
+        "trial:NCT03223012",
+        "trial:NCT01863771",
+        "trial:NCT01863771",
+        "paper:PMC8647967"
+      ],
+      "bm25_ids": [],
+      "hybrid_ids": [
+        "trial:NCT06116331",
+        "trial:NCT03798405",
+        "trial:NCT06116331",
+        "trial:NCT06116331",
+        "paper:PMC8647967"
+      ],
+      "hybrid_terms": [
+        "internal",
+        "in-house",
+        "internal experiment"
+      ],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "hybrid_hit": false,
+      "union_hit": false,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "N2",
+      "question": "公司的报销流程是什么？",
+      "answerable": false,
+      "chroma_top_distance": 0.5541714429855347,
+      "hybrid_top_distance": 0.4929906129837036,
+      "chroma_ids": [
+        "paper:PMC2904879",
+        "trial:NCT03798405",
+        "trial:NCT03223012",
+        "paper:PMC4714968",
+        "paper:PMC6176871"
+      ],
+      "bm25_ids": [],
+      "hybrid_ids": [
+        "trial:NCT03798405",
+        "paper:PMC2904879",
+        "trial:NCT03798405",
+        "paper:PMC3230831",
+        "paper:PMC3540260"
+      ],
+      "hybrid_terms": [
+        "internal",
+        "in-house",
+        "internal experiment"
+      ],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "hybrid_hit": false,
+      "union_hit": false,
+      "acl_leak": false,
+      "reranked": true
+    },
+    {
+      "id": "N3",
+      "question": "GLP-1R 在糖尿病中的表达如何？",
+      "answerable": false,
+      "chroma_top_distance": 0.4561859369277954,
+      "hybrid_top_distance": 0.41004234552383423,
+      "chroma_ids": [
+        "paper:PMC3797414",
+        "paper:PMC3892977",
+        "paper:PMC3892977",
+        "paper:PMC3892977",
+        "paper:PMC3797414"
+      ],
+      "bm25_ids": [
+        "eln:ELN-2024-018",
+        "eln:ELN-2025-012",
+        "eln:ELN-2023-020",
+        "eln:ELN-2023-055",
+        "eln:ELN-2019-881"
+      ],
+      "hybrid_ids": [
+        "paper:PMC3043090",
+        "eln:ELN-2025-012",
+        "paper:PMC3043090",
+        "paper:PMC3892977",
+        "paper:PMC3043090"
+      ],
+      "hybrid_terms": [
+        "expression",
+        "mRNA",
+        "RNA-seq",
+        "qPCR"
+      ],
+      "chroma_hit": false,
+      "bm25_hit": false,
+      "hybrid_hit": false,
+      "union_hit": false,
+      "acl_leak": false,
+      "reranked": true
+    }
+  ]
+}

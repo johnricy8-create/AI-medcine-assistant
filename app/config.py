@@ -79,8 +79,8 @@ class Settings(BaseSettings):
     enable_entity_linker: bool = True
     retrieval_k: int = Field(default=20, gt=0)
     max_context_chunks: int = Field(default=8, gt=0)
-    # 初始阈值基于 P2 冒烟集校准；P8 评估集上必须重新校准。
-    max_distance: float = Field(default=0.45, gt=0)
+    # P8 扩展集校准：可答题 Top1 ≤0.379，无答案最小 0.456，取 0.42。
+    max_distance: float = Field(default=0.42, gt=0)
     chroma_collection: str = "pharma_research"
     index_batch_size: int = Field(default=64, ge=1, le=512)
     embedding_timeout: int = Field(default=120, gt=0)

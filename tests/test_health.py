@@ -46,11 +46,12 @@ class TestHealthApi(unittest.TestCase):
         self.assertFalse(body["index_available"])
         self.assertTrue(self.settings.sqlite_path.exists())
 
-    def test_root_returns_links(self) -> None:
+    def test_root_returns_workbench_page(self) -> None:
         with self.client as client:
             response = client.get("/")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()["health"], "/api/health")
+        self.assertIn("医药研发知识助手", response.text)
+        self.assertIn("研究底稿", response.text)
 
 
 if __name__ == "__main__":

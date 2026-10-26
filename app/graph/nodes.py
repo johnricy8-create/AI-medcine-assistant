@@ -85,6 +85,7 @@ def intake_node(state: ResearchState, services: GraphServices) -> dict[str, Any]
     project_id = state.get("project_id") or ""
     access = services.acl.context(user_id, project_id)
     budget = _as_budget(state.get("budget"), services)
+    allowed_sources = state.get("allowed_sources") or list(SourceType)
     events = [
         _event(
             "intake",
@@ -92,6 +93,10 @@ def intake_node(state: ResearchState, services: GraphServices) -> dict[str, Any]
             user_id=user_id,
             project_id=project_id,
             allowed_scopes=access.allowed_scopes,
+            allowed_sources=[
+                source.value if hasattr(source, "value") else str(source)
+                for source in allowed_sources
+            ],
         )
     ]
 
@@ -129,6 +134,7 @@ def intake_node(state: ResearchState, services: GraphServices) -> dict[str, Any]
             "project_id": project_id,
             "question": question,
             "allowed_scopes": access.allowed_scopes,
+            "allowed_sources": allowed_sources,
             "budget": budget,
             "events": events,
             "status": TaskStatus.BLOCKED.value,
@@ -157,6 +163,7 @@ def intake_node(state: ResearchState, services: GraphServices) -> dict[str, Any]
         "project_id": project_id,
         "question": question,
         "allowed_scopes": access.allowed_scopes,
+        "allowed_sources": allowed_sources,
         "budget": budget,
         "events": events,
         "status": TaskStatus.RUNNING.value,
@@ -209,6 +216,7 @@ def plan_node(state: ResearchState, services: GraphServices) -> dict[str, Any]:
     subquestions = services.planner.plan(
         state.get("question", ""),
         state.get("entities", []),
+        allowed_sources=list(state.get("allowed_sources") or []) or None,
         max_subquestions=budget.max_subquestions,
         max_retrievals=remaining_retrievals,
     )

@@ -200,4 +200,9 @@ class HealthResponse(BaseModel):
     llm_configured: bool
     embedding_configured: bool
     index_available: bool
+    services_ready: bool = False
+    llm_model: str = ""
+    embedding_model: str = ""
+    rerank_enabled: bool = False
+    index_chunk_count: int = 0
     timestamp: datetime = Field(default_factory=utcnow)

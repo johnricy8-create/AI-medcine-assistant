@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">启源</div>
+      <div>
+        <h1>{{ app_name }}</h1>
+        <p>Research Evidence Workbench · 医药研发证据工作台</p>
+      </div>
+    </div>
+    <div class="status-row">
+      <span id="health-pill" class="pill">检查中</span>
+      <span id="model-pill" class="pill subtle">模型</span>
+      <span id="index-pill" class="pill subtle">索引</span>
+      <button id="rebuild-btn" class="ghost small" type="button">重建索引</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel composer">
+      <div class="panel-head">
+        <h2>研究任务</h2>
+        <span id="task-status" class="task-status">待创建</span>
+      </div>
+
+      <div class="form-row two">
+        <label>用户
+          <select id="user-select">
+            <option value="scientist_031">scientist_031 · IBD 项目</option>
+            <option value="reviewer_001">reviewer_001 · 评审专家</option>
+            <option value="guest">guest · 只读访客</option>
+            <option value="scientist_045">scientist_045 · ONCO 项目</option>
+          </select>
+        </label>
+        <label>项目
+          <select id="project-select">
+            <option value="IBD-TX-07">IBD-TX-07</option>
+            <option value="ONCO-02">ONCO-02</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="question-label">研究问题
+        <textarea id="question" rows="6" maxlength="2000"
+          placeholder="例如：IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？"></textarea>
+      </label>
+
+      <div class="examples" id="examples">
+        <button type="button" class="example" data-question="公司是否做过 IL23R 的体内验证？">体内验证</button>
+        <button type="button" class="example" data-question="IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？">CD4+ 表达</button>
+        <button type="button" class="example" data-question="NOD2 敲低对 IL23R 表达有什么影响？">NOD2 交叉</button>
+        <button type="button" class="example" data-question="ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？">越权测试</button>
+        <button type="button" class="example" data-question="公司的请假制度是什么？">无答案</button>
+      </div>
+
+      <button id="run-btn" class="primary" type="button">开始研究</button>
+      <p id="form-error" class="error" hidden></p>
+
+      <div class="hint">
+        系统会并行检索文献、ELN、项目报告、专利和组学数据，并输出带证据等级、反例和引用的研究底稿。
+      </div>
+
+      <details class="timeline-panel" open>
+        <summary>LangGraph 节点时间线</summary>
+        <ul id="timeline" class="timeline">
+          <li class="muted">等待任务…</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="panel result">
+      <div class="panel-head">
+        <h2>研究底稿</h2>
+        <span id="result-meta" class="muted"></span>
+      </div>
+
+      <div id="empty-state" class="empty">
+        <div class="empty-icon">⌬</div>
+        <p>输入一个问题，系统会生成一份可复核的证据底稿。</p>
+        <p class="muted">重点看：证据等级、反例、内部 ELN、引用定位。</p>
+      </div>
+
+      <div id="result-content" hidden>
+        <article class="assessment">
+          <h3>一句话判断</h3>
+          <p id="assessment"></p>
+        </article>
+
+        <section class="result-section">
+          <div class="section-head"><h3>支持证据 / Claims</h3><span id="claims-count" class="muted"></span></div>
+          <div id="claims" class="claims"></div>
+        </section>
+
+        <section class="result-section">
+          <div class="section-head"><h3>反例与冲突</h3><span id="conflicts-count" class="muted"></span></div>
+          <div id="conflicts" class="conflicts"></div>
+        </section>
+
+        <section class="result-section">
+          <div class="section-head"><h3>内部实验（ELN）</h3><span id="internal-count" class="muted"></span></div>
+          <div id="internal-evidence" class="internal-list"></div>
+        </section>
+
+        <section class="result-section two-col">
+          <div>
+            <h3>数据缺口</h3>
+            <ul id="gaps" class="clean-list"></ul>
+          </div>
+          <div>
+            <h3>建议下一步实验</h3>
+            <ul id="next-steps" class="clean-list"></ul>
+          </div>
+        </section>
+
+        <details class="report-details">
+          <summary>完整 Markdown 底稿</summary>
+          <pre id="report-md"></pre>
+        </details>
+
+        <p class="disclaimer">
+          仅用于研究辅助与教学演示，不构成临床诊疗建议、医学判断或知识产权结论。
+          内部 ELN/项目/专利为 DEMO / SYNTHETIC。
+        </p>
+      </div>
+    </section>
+
+    <aside class="panel evidence-panel">
+      <div class="panel-head">
+        <h2>证据抽屉</h2>
+        <span id="evidence-count" class="muted">0</span>
+      </div>
+      <div id="evidence-list" class="evidence-list">
+        <p class="muted">任务完成后显示检索证据。</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <span>医药研发知识助手 · P8</span>
+    <span>Chroma + BM25 + RRF + BGE rerank + LangGraph</span>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

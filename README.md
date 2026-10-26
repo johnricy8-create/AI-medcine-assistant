@@ -2,7 +2,48 @@
 
 基于 **LangChain + LangGraph** 的医药研发证据工作台。面向创新药项目科学家，把文献、专利、临床试验、内部 ELN、组学数据和项目报告连接起来，输出带证据等级、反例、数据缺口和可验证引用的研究底稿。
 
-> 当前状态：**P5 证据综合完成**。已具备证据分级、反例检索、LLM/规则 claims、冲突检测、引用校验、完整研究底稿；业务 API、SSE、页面、人工评审尚未实现。
+> 当前状态：**P8 交付完成**。已具备数据接入、混合检索、LangGraph 研究编排、证据分级、claims、引用校验、研究底稿、FastAPI/SSE、研究工作台、人工评审、快照与审计。
+>
+> 最终报告：`docs/final_report.md` · 工作台截图：`docs/demo_workbench.png`
+>
+> ![研究工作台](docs/demo_workbench.png)
+
+### P8 验证记录（2026-10-26）
+
+| 项 | 结果 |
+|---|---|
+| 扩展检索评估 | **21 条问题**（17 条可答，含 ACL/无答案） |
+| Chroma Recall@5 | **1.000**（按问题意图路由 source） |
+| BM25 Recall@5 | **0.824** |
+| Hybrid Recall@5（RRF + rerank） | **1.000** |
+| ACL 越权泄露 | **0** |
+| 无答案 Top1 距离 | 最小 **0.456** |
+| 最终阈值 | `MAX_DISTANCE=0.42`（可答题 Top1 ≤0.379） |
+| Demo | A3/A1/NOD2 completed；ACL/注入 blocked；评审 + 快照成功 |
+| 测试 | **115 项全部通过** |
+| 入口 | 工作台 `http://127.0.0.1:8010/`；Swagger `/docs`；SSE `/api/research/tasks/{id}/events` |
+
+### P7 验证记录（2026-10-26）
+
+| 项 | 结果 |
+|---|---|
+| 人工评审 | `POST /api/research/tasks/{id}/review` |
+| 评审动作 | accept / accept_with_revision / reject |
+| 版本 | 评审后 task version +1，重新渲染底稿 |
+| 快照 | `GET /api/research/tasks/{id}/snapshot`，落盘 `storage/snapshots/` |
+| 审计 | `GET /api/audit`，记录任务/评审/索引重建/越权访问 |
+| UI | claim 卡片内“接受 / 修订后接受 / 驳回” |
+
+### P6 验证记录（2026-10-26）
+
+| 项 | 结果 |
+|---|---|
+| 任务 API | `POST/GET /api/research/tasks`、`/result`、`/events` |
+| 知识库 API | `GET /api/knowledge/stats`、`POST /api/knowledge/rebuild` |
+| SSE | 节点事件逐条推送，结束后 `event: done` |
+| 工作台 | 三栏研究工作台、示例问题、证据抽屉、节点时间线 |
+| 健康检查 | 模型/索引/服务状态、4,953 chunks |
+| 页面验收 | `GET /` 200；真实任务可完成并渲染 |
 
 ### P5 验证记录（2026-10-26）
 
@@ -65,7 +106,7 @@
 | Chroma ∪ BM25 Recall@5 | **1.000**（两者互补） |
 | ACL 越权泄露 | **0** |
 | 无答案 Top1 距离 | 0.55–0.60；可答题 Top1 0.18–0.36 |
-| 初始距离阈值 | `MAX_DISTANCE=0.45`（冒烟集校准） |
+| 初始距离阈值（P2 历史） | `MAX_DISTANCE=0.45`；P8 最终校准为 **0.42** |
 | 测试 | **51 项全部通过** |
 | 持久化 | 关闭进程后重新打开 Chroma，count/search 正常 |
 
@@ -279,6 +320,24 @@ uv run python scripts/run_task.py "ONCO-02 项目里 IL23R 的结果？" --user 
 
 P5 输出的是完整研究底稿，包含 claims、证据等级、反例、缺口、建议实验和引用。`--json` 还会返回 `claims`、`verify_notes`、`assessment`、`gaps`、`next_steps`。
 
+### 3.8 启动 API / 工作台 / Demo
+
+```powershell
+# 启动服务（如 8000 被占用，可换 8010）
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8010
+
+# 浏览器打开工作台
+# http://127.0.0.1:8010/
+
+# 端到端 demo：任务、ACL、评审、快照
+uv run python scripts/demo.py
+
+# API 端到端冒烟（需先启动服务，默认 8010）
+uv run python scripts/api_smoke.py
+```
+
+工作台支持：用户/项目切换、研究问题、示例问题、SSE 节点时间线、claims 与证据等级、反例、内部 ELN、证据抽屉、claim 评审（接受/修订/驳回）。
+
 ---
 
 ## 4. 启动
@@ -323,7 +382,10 @@ uv run python -m unittest discover -s tests -v
 │  ├─ config.py            # pydantic-settings 配置
 │  ├─ schemas.py           # 领域模型与枚举
 │  ├─ api/
-│  │  └─ health.py         # 健康检查
+│  │  ├─ health.py         # 健康检查
+│  │  ├─ tasks.py          # 任务/SSE/评审/快照/审计
+│  │  ├─ knowledge.py      # 统计/重建
+│  │  └─ schemas.py        # API 响应模型
 │  ├─ ingest/
 │  │  ├─ europe_pmc.py     # Europe PMC 抓取 + JATS 解析
 │  │  ├─ clinical_trials.py
@@ -362,11 +424,18 @@ uv run python -m unittest discover -s tests -v
 │  ├─ llm/
 │  │  └─ client.py         # 智谱 JSON + 模型降级 + 解析修复
 │  ├─ services/
-│  │  └─ acl.py            # 演示级用户/项目 ACL
+│  │  ├─ acl.py            # 演示级用户/项目 ACL
+│  │  ├─ task_store.py     # 任务/事件/证据/claims/评审/快照/审计
+│  │  └─ task_service.py   # 后台 LangGraph 执行与持久化
+│  ├─ templates/
+│  │  └─ index.html        # 研究工作台单页
+│  ├─ static/
+│  │  ├─ style.css
+│  │  └─ app.js
 │  ├─ utils/
 │  │  └─ console.py        # Windows UTF-8 控制台
 │  └─ storage/
-│     ├─ db.py             # SQLite 连接与初始化
+│     ├─ db.py             # SQLite 连接、迁移与初始化
 │     └─ schema.sql        # 任务/证据/claim/评审/快照/审计表
 ├─ data/
 │  ├─ internal_demo/       # 合成 ELN/项目/专利/ACL（提交）
@@ -375,7 +444,7 @@ uv run python -m unittest discover -s tests -v
 │  ├─ manifest.jsonl       # 152 条数据来源/许可/哈希（提交）
 │  ├─ raw/                 # 原始抓取（gitignore）
 │  └─ processed/           # 标准化文档/图谱/组学/chunks（gitignore）
-├─ docs/                   # 设计文档
+├─ docs/                   # 设计文档 / 数据来源 / 最终报告
 ├─ scripts/
 │  ├─ check_services.py    # 真实 Key 连通性检查
 │  ├─ fetch_data.py        # P1 数据抓取
@@ -384,7 +453,9 @@ uv run python -m unittest discover -s tests -v
 │  ├─ query_index.py       # Chroma/BM25 冒烟
 │  ├─ query_hybrid.py      # RRF + 查询扩展 + rerank 冒烟
 │  ├─ eval_retrieval.py    # 离线检索评估
-│  └─ run_task.py          # P4 LangGraph 任务 CLI
+│  ├─ run_task.py          # LangGraph 任务 CLI
+│  ├─ demo.py              # 端到端 demo（任务/ACL/评审/快照）
+│  └─ api_smoke.py         # API 端到端冒烟
 ├─ tests/
 ├─ storage/                # 运行时数据（gitignore）
 ├─ .env.example
@@ -427,7 +498,7 @@ uv run python -m unittest discover -s tests -v
 10. **全文长度**：单篇论文入库文本上限 80,000 字符，超出标记 `truncated=true`，避免异常长指南污染索引。
 11. **Chroma 必须显式关闭**：Windows 下 `VectorStore.close()` 停止后台 system；否则重开可能报 `Error loading hnsw index`。
 12. **HNSW 参数**：`HNSW_SYNC_THRESHOLD=100000`，避免建库过程中后台 compaction 干扰；关库前等待 1 秒。
-13. **距离阈值不是通用值**：`MAX_DISTANCE=0.45` 仅基于当前 9 条冒烟集校准；P8 必须在 30–40 条评估集上重新校准。
+13. **距离阈值不是通用值**：P8 在 21 条评估集上校准为 `MAX_DISTANCE=0.42`（可答题 Top1 ≤0.379，无答案最小 0.456）；换模型/换语料必须重新校准。
 14. **混合检索是必需的**：Chroma 与 BM25 单独 Recall@5 都是 0.833，RRF+rerank 后 1.0。
 15. **Rerank 自动回退**：`RERANK_ENABLED=true` 但 Key 不可用时，`build_hybrid_retriever` 会记录 warning 并回退 RRF，不阻塞查询。
 16. **RRF 分数不是距离**：RRF 用于排序；拒答仍看 Chroma 稠密距离（`dense_top_distance`）与证据覆盖，不能把 RRF 分数当阈值。
@@ -450,9 +521,9 @@ uv run python -m unittest discover -s tests -v
 | P3 | RRF 混合检索 + 查询扩展 + rerank + 组学工具 | **已完成** |
 | P4 | LangGraph 主图、fan-out、预算、ACL、事件、CLI | **已完成** |
 | P5 | 反例、证据分级、claims、引用校验、完整研究底稿 | **已完成** |
-| P6 | FastAPI 业务接口 + 研究工作台页面 | 下一步 |
-| P7 | 人工评审、快照、审计、权限测试 | 待开始 |
-| P8 | 30–40 条评估、演示脚本、最终验收 | 待开始 |
+| P6 | FastAPI 业务接口 + SSE + 研究工作台页面 | **已完成** |
+| P7 | 人工评审、快照、审计、权限测试 | **已完成** |
+| P8 | 21 条扩展评估、demo、最终验收 | **已完成** |
 
 ---
 

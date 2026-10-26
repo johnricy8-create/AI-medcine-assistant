@@ -94,6 +94,7 @@ class ResearchState(TypedDict, total=False):
     project_id: str
     question: str
     allowed_scopes: list[str]
+    allowed_sources: list[Any]
     entities: list[EntityRef]
     subquestions: list[SubQuestion]
     evidence: Annotated[list[Evidence], merge_evidence]

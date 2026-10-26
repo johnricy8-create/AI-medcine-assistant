@@ -34,14 +34,23 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="离线检索评估")
     parser.add_argument("--hybrid", action="store_true", help="评估 RRF 混合检索")
     parser.add_argument("--rerank", action="store_true", help="混合检索后调用 rerank")
+    parser.add_argument(
+        "--questions",
+        default="retrieval_smoke.json",
+        help="评估集文件名（data/eval 下）或绝对路径",
+    )
+    parser.add_argument(
+        "--output",
+        default="retrieval_smoke_result.json",
+        help="结果文件名（data/eval 下）或绝对路径",
+    )
     args = parser.parse_args()
 
     settings = get_settings()
-    questions = json.loads(
-        (settings.data_dir / "eval" / "retrieval_smoke.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    questions_path = Path(args.questions)
+    if not questions_path.is_absolute():
+        questions_path = settings.data_dir / "eval" / questions_path
+    questions = json.loads(questions_path.read_text(encoding="utf-8"))
     if args.rerank:
         args.hybrid = True
 
@@ -67,8 +76,15 @@ def main() -> int:
 
     for item in questions:
         scopes = item.get("scopes")
-        vhits = store.search(item["question"], k=TOP_K, allowed_scopes=scopes)
-        bhits = bm25.search(item["question"], k=TOP_K, allowed_scopes=scopes)
+        source_types = item.get("source_types")
+        vhits = store.search(
+            item["question"], k=TOP_K, allowed_scopes=scopes,
+            source_types=source_types,
+        )
+        bhits = bm25.search(
+            item["question"], k=TOP_K, allowed_scopes=scopes,
+            source_types=source_types,
+        )
         hhits = []
         h_result = None
         if retriever is not None:
@@ -76,6 +92,7 @@ def main() -> int:
                 item["question"],
                 k=TOP_K,
                 allowed_scopes=scopes,
+                source_types=source_types,
                 use_rerank=args.rerank,
             )
             hhits = h_result.hits
@@ -146,8 +163,11 @@ def main() -> int:
         summary["reranked"] = args.rerank
     print("\n=== SUMMARY ===")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
+    output_path = Path(args.output)
+    if not output_path.is_absolute():
+        output_path = settings.data_dir / "eval" / output_path
     write_json(
-        settings.data_dir / "eval" / "retrieval_smoke_result.json",
+        output_path,
         {"summary": summary, "records": records},
     )
     store.close()
