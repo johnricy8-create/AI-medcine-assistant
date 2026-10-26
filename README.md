@@ -2,7 +2,24 @@
 
 基于 **LangChain + LangGraph** 的医药研发证据工作台。面向创新药项目科学家，把文献、专利、临床试验、内部 ELN、组学数据和项目报告连接起来，输出带证据等级、反例、数据缺口和可验证引用的研究底稿。
 
-> 当前状态：**P2 索引与检索完成**。已具备科学切块、实体链接、BGE-M3/Chroma 向量索引、BM25、离线检索冒烟评估；LangGraph、业务 API、页面尚未实现。
+> 当前状态：**P3 混合检索完成**。已具备科学切块、实体链接、BGE-M3/Chroma、BM25、RRF 融合、查询扩展、BGE rerank、组学工具；LangGraph、业务 API、页面尚未实现。
+
+### P3 验证记录（2026-10-26）
+
+| 项 | 结果 |
+|---|---|
+| RRF 混合检索 | Chroma + BM25，k=60，按父块去重 |
+| 查询扩展 | 实体别名 + 体内/体外/蛋白/阴性/内部等规则同义词 |
+| 反例查询 | 生成“阴性/无显著变化/未重复/failed to replicate”查询 |
+| Rerank | SiliconFlow `BAAI/bge-reranker-v2-m3`，Top-20 重排 |
+| Hybrid Recall@5（仅 RRF） | **0.833** |
+| Hybrid Recall@5（RRF + rerank） | **1.000** |
+| ACL 越权泄露 | **0** |
+| 无答案 Top1 距离 | 0.55–0.60 |
+| 组学工具 | HPA IL23R/NOD2 表达查询，返回组织/单细胞/血细胞数据 |
+| 测试 | **67 项全部通过** |
+
+关键发现：A3“体内验证”在纯 RRF 下被专利片段挤占 Top-5；加入 BGE rerank 后，Top-1/Top-2 变为 `ELN-2024-003` 与 `ELN-2019-881`，Recall@5 从 0.833 提升到 1.0。
 
 ### P2 验证记录（2026-10-26）
 
@@ -188,6 +205,30 @@ uv run python scripts/eval_retrieval.py
 
 > Chroma 在 Windows 下需要显式关闭；`VectorStore.close()` 会停止后台 system，避免重新打开时报 `Error loading hnsw index`。
 
+### 3.6 混合检索与组学工具
+
+```powershell
+# RRF + 查询扩展 + rerank（.env 中 RERANK_ENABLED=true 时默认启用）
+uv run python scripts/query_hybrid.py "公司是否做过 IL23R 的体内验证？"
+
+# 强制关闭 rerank，只看 RRF
+uv run python scripts/query_hybrid.py "NOD2 敲低对 IL23R 有什么影响？" --no-rerank
+
+# 评估 Chroma / BM25 / RRF / rerank
+uv run python scripts/eval_retrieval.py --hybrid --rerank
+```
+
+组学工具示例：
+
+```python
+from app.config import get_settings
+from app.tools.omics import OmicsTool
+
+tool = OmicsTool(get_settings().data_dir / "processed" / "omics" / "hpa_expression.json")
+result = tool.expression("IL23R", tissue="intestine")
+print(result.data)
+```
+
 ---
 
 ## 4. 启动
@@ -248,7 +289,13 @@ uv run python -m unittest discover -s tests -v
 │  │  ├─ embeddings.py     # 硅基流动 BGE-M3 + 向量校验
 │  │  ├─ vector_store.py   # Chroma + ACL 过滤 + 显式 close
 │  │  ├─ bm25.py           # jieba + rank_bm25
-│  │  └─ index_builder.py  # 切块→实体→Chroma/BM25→manifest
+│  │  ├─ index_builder.py  # 切块→实体→Chroma/BM25→manifest
+│  │  ├─ query_expansion.py# 实体别名 + 领域同义词 + 反例查询
+│  │  ├─ hybrid.py         # RRF 融合 + 父块去重 + rerank
+│  │  └─ rerank.py         # SiliconFlow BGE reranker
+│  ├─ tools/
+│  │  ├─ models.py         # ToolResult
+│  │  └─ omics.py          # HPA 表达查询
 │  ├─ utils/
 │  │  └─ console.py        # Windows UTF-8 控制台
 │  └─ storage/
@@ -267,7 +314,8 @@ uv run python -m unittest discover -s tests -v
 │  ├─ fetch_data.py        # P1 数据抓取
 │  ├─ seed_internal_demo.py
 │  ├─ rebuild_index.py     # P2 切块 + BGE-M3/Chroma + BM25
-│  ├─ query_index.py       # 检索冒烟
+│  ├─ query_index.py       # Chroma/BM25 冒烟
+│  ├─ query_hybrid.py      # RRF + 查询扩展 + rerank 冒烟
 │  └─ eval_retrieval.py    # 离线检索评估
 ├─ tests/
 ├─ storage/                # 运行时数据（gitignore）
@@ -312,7 +360,9 @@ uv run python -m unittest discover -s tests -v
 11. **Chroma 必须显式关闭**：Windows 下 `VectorStore.close()` 停止后台 system；否则重开可能报 `Error loading hnsw index`。
 12. **HNSW 参数**：`HNSW_SYNC_THRESHOLD=100000`，避免建库过程中后台 compaction 干扰；关库前等待 1 秒。
 13. **距离阈值不是通用值**：`MAX_DISTANCE=0.45` 仅基于当前 9 条冒烟集校准；P8 必须在 30–40 条评估集上重新校准。
-14. **混合检索是必需的**：Chroma 与 BM25 单独 Recall@5 都是 0.833，合并后 1.0；P3 用 RRF 融合。
+14. **混合检索是必需的**：Chroma 与 BM25 单独 Recall@5 都是 0.833，RRF+rerank 后 1.0。
+15. **Rerank 自动回退**：`RERANK_ENABLED=true` 但 Key 不可用时，`build_hybrid_retriever` 会记录 warning 并回退 RRF，不阻塞查询。
+16. **RRF 分数不是距离**：RRF 用于排序；拒答仍看 Chroma 稠密距离（`dense_top_distance`）与证据覆盖，不能把 RRF 分数当阈值。
 
 ---
 
@@ -322,8 +372,8 @@ uv run python -m unittest discover -s tests -v
 |---|---|---|
 | P1 | 100 篇公开论文 + 10 试验 + HPA/Open Targets + 合成 ELN/项目/专利/ACL + manifest | **已完成** |
 | P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟 | **已完成** |
-| P3 | RRF 混合检索 + 查询扩展 + 可选 rerank + 组学工具 | 下一步 |
-| P4 | LangGraph 主图、fan-out、预算、降级、SSE | 待开始 |
+| P3 | RRF 混合检索 + 查询扩展 + rerank + 组学工具 | **已完成** |
+| P4 | LangGraph 主图、fan-out、预算、降级、SSE | 下一步 |
 | P5 | 反例、证据分级、claims、引用校验、研究底稿 | 待开始 |
 | P6 | FastAPI 业务接口 + 研究工作台页面 | 待开始 |
 | P7 | 人工评审、快照、审计、权限测试 | 待开始 |

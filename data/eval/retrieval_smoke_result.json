@@ -8,8 +8,10 @@
     "acl_leaks": 0,
     "no_answer_top_distances": [
       0.602578341960907,
-      0.5541714429855347
-    ]
+      0.5619332790374756
+    ],
+    "hybrid_recall_at_5": 1.0,
+    "reranked": true
   },
   "records": [
     {
@@ -17,6 +19,7 @@
       "question": "IL23R 在 IBD 的 CD4+ 记忆 T 细胞中是否有选择性表达？公司做过哪些验证？",
       "answerable": true,
       "chroma_top_distance": 0.25217193365097046,
+      "hybrid_top_distance": 0.22567278146743774,
       "chroma_ids": [
         "eln:ELN-2022-117",
         "report:PRJ-IBD-2026-01",
@@ -31,16 +34,40 @@
         "eln:ELN-2024-018",
         "eln:ELN-2026-002"
       ],
+      "hybrid_ids": [
+        "eln:ELN-2022-117",
+        "report:PRJ-IBD-2026-01",
+        "paper:PMC9097674",
+        "paper:PMC3892977",
+        "paper:PMC2118132"
+      ],
+      "hybrid_terms": [
+        "CD4-positive, alpha-beta memory T cell",
+        "CD4 memory T cell",
+        "CD4+ memory T cell",
+        "CD4+CD45RO+ T cell",
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "inflammatory bowel disease",
+        "炎症性肠病",
+        "expression",
+        "mRNA",
+        "RNA-seq"
+      ],
       "chroma_hit": true,
       "bm25_hit": true,
+      "hybrid_hit": true,
       "union_hit": true,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "A2",
       "question": "NOD2 敲低对 IL23R 表达有什么影响？",
       "answerable": true,
       "chroma_top_distance": 0.1849350929260254,
+      "hybrid_top_distance": 0.2343236207962036,
       "chroma_ids": [
         "eln:ELN-2023-020",
         "report:PRJ-IBD-2026-02",
@@ -55,22 +82,45 @@
         "eln:ELN-2019-881",
         "report:PRJ-IBD-2026-02"
       ],
+      "hybrid_ids": [
+        "eln:ELN-2023-020",
+        "eln:ELN-2025-012",
+        "report:PRJ-IBD-2026-02",
+        "report:PRJ-IBD-2026-02",
+        "paper:PMC9097674"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "CARD15",
+        "NLRC2",
+        "IBD1",
+        "nucleotide binding oligomerization domain containing 2",
+        "expression",
+        "mRNA",
+        "RNA-seq",
+        "qPCR"
+      ],
       "chroma_hit": true,
       "bm25_hit": true,
+      "hybrid_hit": true,
       "union_hit": true,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "A3",
       "question": "公司是否做过 IL23R 的体内验证？",
       "answerable": true,
       "chroma_top_distance": 0.3631221055984497,
+      "hybrid_top_distance": 0.32248419523239136,
       "chroma_ids": [
         "paper:PMC3192060",
         "eln:ELN-2025-007",
-        "paper:PMC3043090",
         "report:PRJ-IBD-2026-01",
-        "eln:ELN-2024-031"
+        "eln:ELN-2024-031",
+        "paper:PMC3192060"
       ],
       "bm25_ids": [
         "eln:ELN-2024-018",
@@ -79,16 +129,40 @@
         "report:PRJ-IBD-2026-01",
         "eln:ELN-2026-009"
       ],
+      "hybrid_ids": [
+        "eln:ELN-2024-003",
+        "eln:ELN-2019-881",
+        "eln:ELN-2024-018",
+        "report:PRJ-IBD-2026-01",
+        "report:PRJ-IBD-2026-01"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "in vivo",
+        "animal model",
+        "mouse",
+        "mice",
+        "validation",
+        "validate",
+        "experiment",
+        "internal",
+        "in-house"
+      ],
       "chroma_hit": false,
       "bm25_hit": true,
+      "hybrid_hit": true,
       "union_hit": true,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "A4",
       "question": "UC 活检组织 IL23R mRNA 是否升高？",
       "answerable": true,
-      "chroma_top_distance": 0.2525666356086731,
+      "chroma_top_distance": 0.2523344159126282,
+      "hybrid_top_distance": 0.2883152365684509,
       "chroma_ids": [
         "eln:ELN-2021-044",
         "eln:ELN-2023-055",
@@ -103,16 +177,38 @@
         "eln:ELN-2023-055",
         "report:PRJ-IBD-2026-01"
       ],
+      "hybrid_ids": [
+        "eln:ELN-2021-044",
+        "eln:ELN-2024-003",
+        "report:PRJ-IBD-2026-01",
+        "eln:ELN-2023-055",
+        "eln:ELN-2025-019"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "ulcerative colitis",
+        "溃疡性结肠炎",
+        "RNA-seq",
+        "qPCR",
+        "biopsy",
+        "biopsies",
+        "tissue"
+      ],
       "chroma_hit": true,
       "bm25_hit": true,
+      "hybrid_hit": true,
       "union_hit": true,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "A5",
       "question": "IL-23 在炎症性肠病发病机制中起什么作用？",
       "answerable": true,
       "chroma_top_distance": 0.30077874660491943,
+      "hybrid_top_distance": 0.23866480588912964,
       "chroma_ids": [
         "paper:PMC8042267",
         "paper:PMC9097674",
@@ -127,16 +223,35 @@
         "paper:PMC7937623",
         "paper:PMC2118119"
       ],
+      "hybrid_ids": [
+        "paper:PMC9097674",
+        "paper:PMC2118132",
+        "paper:19253307",
+        "paper:PMC9097674",
+        "paper:PMC1950565"
+      ],
+      "hybrid_terms": [
+        "IL23A",
+        "IL-23A",
+        "IL23P19",
+        "P19",
+        "interleukin 23 subunit alpha",
+        "inflammatory bowel disease",
+        "IBD"
+      ],
       "chroma_hit": true,
       "bm25_hit": false,
+      "hybrid_hit": true,
       "union_hit": true,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "ACL1",
       "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
       "answerable": false,
       "chroma_top_distance": 0.3716225028038025,
+      "hybrid_top_distance": 0.3184535503387451,
       "chroma_ids": [
         "paper:22089030",
         "paper:22089030",
@@ -151,16 +266,33 @@
         "eln:ELN-2026-009",
         "report:PRJ-IBD-2026-02"
       ],
+      "hybrid_ids": [
+        "paper:22089030",
+        "paper:PMC7937623",
+        "paper:PMC9097674",
+        "paper:PMC3078329",
+        "paper:PMC3043090"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "cell",
+        "cell type"
+      ],
       "chroma_hit": false,
       "bm25_hit": false,
+      "hybrid_hit": false,
       "union_hit": false,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "ACL2",
       "question": "ONCO-02 项目里 IL23R 在肿瘤浸润淋巴细胞中的结果是什么？",
       "answerable": true,
       "chroma_top_distance": 0.1966802477836609,
+      "hybrid_top_distance": 0.21502041816711426,
       "chroma_ids": [
         "report:PRJ-ONCO-2024-03",
         "report:PRJ-ONCO-2024-03",
@@ -175,46 +307,92 @@
         "report:PRJ-ONCO-2024-03",
         "paper:PMC3234215"
       ],
+      "hybrid_ids": [
+        "eln:ELN-ONCO-2024-777",
+        "report:PRJ-ONCO-2024-03",
+        "report:PRJ-ONCO-2024-03",
+        "paper:22089030",
+        "paper:PMC7937623"
+      ],
+      "hybrid_terms": [
+        "IL-23R",
+        "IL-23 receptor",
+        "interleukin 23 receptor",
+        "cell",
+        "cell type"
+      ],
       "chroma_hit": true,
       "bm25_hit": true,
+      "hybrid_hit": true,
       "union_hit": true,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "N1",
       "question": "公司的请假制度是什么？",
       "answerable": false,
       "chroma_top_distance": 0.602578341960907,
+      "hybrid_top_distance": 0.5369284152984619,
       "chroma_ids": [
         "trial:NCT03798405",
         "trial:NCT03223012",
         "trial:NCT01863771",
         "trial:NCT01863771",
-        "paper:PMC4577846"
+        "paper:PMC8647967"
       ],
       "bm25_ids": [],
+      "hybrid_ids": [
+        "trial:NCT06116331",
+        "trial:NCT03798405",
+        "trial:NCT06116331",
+        "trial:NCT06116331",
+        "eln:ELN-2025-024"
+      ],
+      "hybrid_terms": [
+        "internal",
+        "in-house",
+        "internal experiment"
+      ],
       "chroma_hit": false,
       "bm25_hit": false,
+      "hybrid_hit": false,
       "union_hit": false,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     },
     {
       "id": "N2",
       "question": "公司的报销流程是什么？",
       "answerable": false,
-      "chroma_top_distance": 0.5541714429855347,
+      "chroma_top_distance": 0.5619332790374756,
+      "hybrid_top_distance": 0.4929906129837036,
       "chroma_ids": [
-        "paper:PMC2904879",
         "trial:NCT03798405",
         "trial:NCT03223012",
         "paper:PMC4714968",
-        "paper:PMC6176871"
+        "paper:PMC6176871",
+        "trial:NCT03798405"
       ],
       "bm25_ids": [],
+      "hybrid_ids": [
+        "trial:NCT03798405",
+        "trial:NCT03798405",
+        "paper:PMC3230831",
+        "paper:PMC7041720",
+        "paper:PMC3797414"
+      ],
+      "hybrid_terms": [
+        "internal",
+        "in-house",
+        "internal experiment"
+      ],
       "chroma_hit": false,
       "bm25_hit": false,
+      "hybrid_hit": false,
       "union_hit": false,
-      "acl_leak": false
+      "acl_leak": false,
+      "reranked": true
     }
   ]
 }

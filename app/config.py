@@ -87,6 +87,12 @@ class Settings(BaseSettings):
     hnsw_batch_size: int = Field(default=1000, ge=1)
     hnsw_sync_threshold: int = Field(default=100000, ge=1)
 
+    # ---------- 混合检索 / 重排 ----------
+    rrf_k: int = Field(default=60, gt=0)
+    hybrid_candidate_k: int = Field(default=20, gt=0)
+    rerank_top_n: int = Field(default=20, gt=0)
+    rerank_timeout: int = Field(default=60, gt=0)
+
     # ---------- LangGraph 预算与停止条件 ----------
     max_plan_rounds: int = Field(default=2, ge=1)
     max_subquestions: int = Field(default=5, ge=1)

@@ -226,7 +226,18 @@ query
 - ACL 泄露 0；
 - 可答题 Top1 距离 0.18–0.36，无答案 0.55–0.60；
 - 初始阈值 `MAX_DISTANCE=0.45`，P8 需重新校准；
-- P3 将实现 RRF 融合，解决“A3 只有 BM25 命中、A5 只有 Chroma 命中”的互补问题。
+- P3 已实现 RRF 融合，解决“A3 只有 BM25 命中、A5 只有 Chroma 命中”的互补问题。
+
+**P3 实际结果（2026-10-26）**：
+
+- 查询扩展：实体别名 + 体内/体外/蛋白/表达/阴性/内部/临床等规则同义词；
+- 反例查询：阴性、无显著变化、未重复、failed to replicate；
+- RRF：Chroma + BM25，k=60，按父块去重；
+- Rerank：SiliconFlow `BAAI/bge-reranker-v2-m3`，Top-20；
+- Hybrid Recall@5（仅 RRF）0.833；RRF + rerank **1.000**；
+- A3“体内验证”从专利片段挤占 Top-5，变为 Top-1/Top-2 命中 `ELN-2024-003` / `ELN-2019-881`；
+- ACL 越权泄露 0；
+- 组学工具支持 HPA IL23R/NOD2 表达查询。
 
 ### 6.3 ACL
 
@@ -305,7 +316,7 @@ query
 | P0 | 环境、骨架、配置、SQLite、健康检查（已完成） |
 | P1 | 100 篇论文 + 10 试验 + HPA/Open Targets + 合成内部数据 + manifest（已完成） |
 | P2 | 科学切块、实体链接、BGE-M3/Chroma、BM25、索引 manifest、检索冒烟（已完成） |
-| P3 | RRF 混合检索 + 查询扩展 + 可选 rerank + 组学工具 |
+| P3 | RRF 混合检索 + 查询扩展 + rerank + 组学工具（已完成） |
 | P4 | LangGraph 主图、fan-out、预算、SSE |
 | P5 | 反例、分级、claims、引用校验、研究底稿 |
 | P6 | FastAPI 业务接口 + 工作台页面 |
